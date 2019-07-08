@@ -7,6 +7,9 @@ public class Pergunta {
     private String resposta1;
     private String resposta2; //alterar isso por um array
     private int respostaCerta;
+    private  int respostaMarcada;
+
+    public Pergunta() {}
 
     public int getId() {
         return id;
@@ -46,5 +49,13 @@ public class Pergunta {
 
     public void setRespostaCerta(int respostaCerta) {
         this.respostaCerta = respostaCerta;
+    }
+
+    public int getRespostaMarcada() {
+        return respostaMarcada;
+    }
+
+    public void setRespostaMarcada(int respostaMarcada) {
+        this.respostaMarcada = respostaMarcada;
     }
 }
