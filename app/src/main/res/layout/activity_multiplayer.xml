@@ -128,6 +128,26 @@
         android:src="@drawable/btn_confirma"
         />
 
+    <TextView
+        android:id="@+id/tempoP1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="00:00"/>
+
+    <TextView
+        android:id="@+id/pontosP1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="#28E16B"
+        android:text="+1"/>
+
     <!-- PLAYER 2 -->
 
     <TextView

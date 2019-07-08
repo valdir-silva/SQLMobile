@@ -4,8 +4,7 @@ public class Pergunta {
 
     private int id;
     private String pergunta;
-    private String resposta1;
-    private String resposta2; //alterar isso por um array
+    private String resposta[];
     private int respostaCerta;
     private  int respostaMarcada;
 
@@ -27,20 +26,12 @@ public class Pergunta {
         this.pergunta = pergunta;
     }
 
-    public String getResposta1() {
-        return resposta1;
+    public String[] getResposta() {
+        return resposta;
     }
 
-    public void setResposta1(String resposta1) {
-        this.resposta1 = resposta1;
-    }
-
-    public String getResposta2() {
-        return resposta2;
-    }
-
-    public void setResposta2(String resposta2) {
-        this.resposta2 = resposta2;
+    public void setResposta(String resposta1) {
+        this.resposta = resposta;
     }
 
     public int getRespostaCerta() {
