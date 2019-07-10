@@ -1,10 +1,13 @@
 package com.example.sqlmobile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pergunta {
 
     private int id;
     private String pergunta;
-    private String resposta[];
+    List<String> resposta = new ArrayList<String>();
     private int respostaCerta;
     private  int respostaMarcada;
 
@@ -26,11 +29,11 @@ public class Pergunta {
         this.pergunta = pergunta;
     }
 
-    public String[] getResposta() {
+    public List<String> getResposta() {
         return resposta;
     }
 
-    public void setResposta(String resposta1) {
+    public void setResposta(List<String> resposta) {
         this.resposta = resposta;
     }
 

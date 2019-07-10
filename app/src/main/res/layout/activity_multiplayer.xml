@@ -128,14 +128,34 @@
         android:src="@drawable/btn_confirma"
         />
 
-    <TextView
-        android:id="@+id/tempoP1"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="20dp"
+        android:src="@drawable/bg_time"/>
+
+    <TextView
+        android:id="@+id/tempoP1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="21dp"
+        android:textColor="#FFF1E7"
+        android:textSize="13dp"
         android:text="00:00"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/bg_pontos"/>
+
 
     <TextView
         android:id="@+id/pontosP1"
@@ -143,10 +163,33 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="35dp"
         android:layout_marginBottom="20dp"
-        android:textColor="#28E16B"
-        android:text="+1"/>
+        android:textColor="#CCECD7"
+        android:textSize="15dp"
+        android:text="1"/>
+
+    <TextView
+        android:id="@+id/txtAcertou"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:textStyle="bold"
+        android:textColor="#4AC677"
+        android:text="ACERTOU! +1"/>
+
+    <TextView
+        android:id="@+id/txtErrou"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:textStyle="bold"
+        android:textColor="#C67C4A"
+        android:text="ERROU! -1"/>
 
     <!-- PLAYER 2 -->
 
