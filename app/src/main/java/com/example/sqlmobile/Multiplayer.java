@@ -15,17 +15,17 @@ import java.util.List;
 public class Multiplayer extends AppCompatActivity {
 
     TextView PerguntaPlayer1, PerguntaPlayer2;
-    TextView Resposta1, Resposta2;
+    TextView Resposta1, Resposta2, Resposta1_P2, Resposta2_P2;
 
     ImageView bg_Resposta1, bg_Resposta1_clicked, bg_Resposta2, bg_Resposta2_clicked;
     ImageView bg_Resposta1_P2, bg_Resposta1_clicked_P2, bg_Resposta2_P2, bg_Resposta2_clicked_P2;
     ImageView btn_confirma;
     ImageView btn_confirma_P2;
 
-    TextView txtAcertou;
-    TextView txtErrou;
+    TextView txtAcertou, txtAcertouP2;
+    TextView txtErrou, txtErrouP2;
 
-    TextView tempoP1;
+    TextView tempoP1, tempoP2;
 
     TextView pontosP1, pontosP2;
 
@@ -33,6 +33,7 @@ public class Multiplayer extends AppCompatActivity {
     Usuario player2 = new Usuario();
 
     List<Pergunta> listaPerguntas = new ArrayList<Pergunta>();
+    List<Pergunta> listaPerguntasP2 = new ArrayList<Pergunta>();
 
     Controladores controladores = new Controladores();
 
@@ -47,6 +48,8 @@ public class Multiplayer extends AppCompatActivity {
 
         Resposta1 = findViewById(R.id.Resposta1);
         Resposta2 = findViewById(R.id.Resposta2);
+        Resposta1_P2 = findViewById(R.id.Resposta1_P2);
+        Resposta2_P2 = findViewById(R.id.Resposta2_P2);
 
         bg_Resposta1 = findViewById(R.id.bg_Resposta1);
         bg_Resposta1_clicked = findViewById(R.id.bg_Resposta1_clicked);
@@ -59,18 +62,20 @@ public class Multiplayer extends AppCompatActivity {
         bg_Resposta2_clicked_P2 = findViewById(R.id.bg_Resposta2_clicked_P2);
 
         tempoP1 = findViewById(R.id.tempoP1);
+        tempoP2 = findViewById(R.id.tempoP2);
 
         pontosP1 = findViewById(R.id.pontosP1);
-        //pontosP2 = findViewById(R.id.pontosP2);
+        pontosP2 = findViewById(R.id.pontosP2);
 
         btn_confirma = findViewById(R.id.btn_confirma);
         btn_confirma_P2 = findViewById(R.id.btn_confirma_P2);
 
         txtAcertou = findViewById(R.id.txtAcertou);
         txtErrou = findViewById(R.id.txtErrou);
+        txtAcertouP2 = findViewById(R.id.txtAcertouP2);
+        txtErrouP2 = findViewById(R.id.txtErrouP2);
 
         // Abaixo: Instanciando e inicializando objetos e atributos
-
         player1.setPontuacao(0);
         player2.setPontuacao(0);
 
@@ -87,16 +92,50 @@ public class Multiplayer extends AppCompatActivity {
         pergunta2.getResposta().add("Outra resposta de novo");
         pergunta2.setRespostaCerta(2);
         listaPerguntas.add(pergunta2);
+
+        Pergunta pergunta3 = new Pergunta();
+        pergunta3.setPergunta("Select nova pergunta");
+        pergunta3.getResposta().add("Outra nova resposta");
+        pergunta3.getResposta().add("Outra resposta de novo");
+        pergunta3.setRespostaCerta(3);
+        listaPerguntas.add(pergunta3);
+
+        // Lista de Perguntas do Player 2
+        Pergunta perguntaP2_1 = new Pergunta();
+        perguntaP2_1.setPergunta("Select outra pergunta");
+        perguntaP2_1.getResposta().add("Outra resposta");
+        perguntaP2_1.getResposta().add("Outra resposta de novo");
+        perguntaP2_1.setRespostaCerta(1);
+        listaPerguntasP2.add(perguntaP2_1);
+
+        Pergunta perguntaP2_2 = new Pergunta();
+        perguntaP2_2.setPergunta("Select uma outra pergunta");
+        perguntaP2_2.getResposta().add("Outra nova resposta");
+        perguntaP2_2.getResposta().add("Outra resposta de novo");
+        perguntaP2_2.setRespostaCerta(2);
+        listaPerguntasP2.add(perguntaP2_2);
+
+        Pergunta perguntaP2_3 = new Pergunta();
+        perguntaP2_3.setPergunta("Select FROM outra pergunta");
+        perguntaP2_3.getResposta().add("Nova resposta");
+        perguntaP2_3.getResposta().add("Outra resposta de novo");
+        perguntaP2_3.setRespostaCerta(2);
+        listaPerguntasP2.add(perguntaP2_3);
+
         //FIM INSTANCIANDO E INICIALIZANDO
 
         //Abaixo: levando valores para o Front-End
         pontosP1.setText(Integer.toString(player1.getPontuacao()));
+        pontosP2.setText(Integer.toString(player2.getPontuacao()));
 
         atualizarPerguntaP1(controladores.getPerguntaP1());
+        atualizarPerguntaP2(controladores.getPerguntaP2());
         //FIM COLOCANDO VALORES FRONT-END
 
         txtAcertou.setVisibility(View.INVISIBLE);
         txtErrou.setVisibility(View.INVISIBLE);
+        txtAcertouP2.setVisibility(View.INVISIBLE);
+        txtErrouP2.setVisibility(View.INVISIBLE);
 
         bg_Resposta1_clicked.setVisibility(View.INVISIBLE);
         bg_Resposta2_clicked.setVisibility(View.INVISIBLE);
@@ -158,10 +197,13 @@ public class Multiplayer extends AppCompatActivity {
                 secondos = secondos % 60;
                 tempoP1.setText(String.format("%02d", minutos)
                         + ":" + String.format("%02d", secondos));
+                tempoP2.setText(String.format("%02d", minutos)
+                        + ":" + String.format("%02d", secondos));
             }
 
             public void onFinish() {
                 tempoP1.setText("FIM!");
+                tempoP2.setText("FIM!");
             }
         }.start();
 
@@ -186,25 +228,15 @@ public class Multiplayer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (listaPerguntas.get(1).getRespostaCerta() == listaPerguntas.get(1).getRespostaMarcada()){
-                    new AlertDialog.Builder(Multiplayer.this)
-                            .setTitle("Resposta Correta!")
-                            .setMessage("Aperte Ok para a próxima pergunta")
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    //fecha caixa de dialogo
-                                    dialog.dismiss();
-                                }
-                            }).show();
+                    mostrarTexto(txtAcertouP2);
+                    player2.setPontuacao(player2.getPontuacao()+1);
+                    pontosP2.setText(Integer.toString(player2.getPontuacao()));
+                    controladores.setPerguntaP2(controladores.getPerguntaP2()+1);
+                    atualizarPerguntaP2(controladores.getPerguntaP2());
                 } else {
-                    new AlertDialog.Builder(Multiplayer.this)
-                            .setTitle("Tente Novamente")
-                            .setMessage("Aperte Ok para tentar outra vez")
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    //fecha caixa de dialogo
-                                    dialog.dismiss();
-                                }
-                            }).show();
+                    mostrarTexto(txtErrouP2);
+                    player2.setPontuacao(player2.getPontuacao()-1);
+                    pontosP2.setText(Integer.toString(player2.getPontuacao()));
                 }
             }
         });
@@ -221,7 +253,7 @@ public class Multiplayer extends AppCompatActivity {
                 texto.setVisibility(View.VISIBLE);
             }
             public void onFinish() {
-                texto.setVisibility(View.INVISIBLE);;
+                texto.setVisibility(View.INVISIBLE);
             }
         }.start();
     }
@@ -229,6 +261,12 @@ public class Multiplayer extends AppCompatActivity {
     public void atualizarPerguntaP1(int numPergunta){ // Abstrair para os dois jogadores
         PerguntaPlayer1.setText(listaPerguntas.get(numPergunta).getPergunta());
         Resposta1.setText(listaPerguntas.get(numPergunta).getResposta().get(0));
-        Resposta1.setText(listaPerguntas.get(numPergunta).getResposta().get(1));
+        Resposta2.setText(listaPerguntas.get(numPergunta).getResposta().get(1));
+    }
+
+    public void atualizarPerguntaP2(int numPergunta){ // Abstrair para os dois jogadores
+        PerguntaPlayer2.setText(listaPerguntas.get(numPergunta).getPergunta());
+        Resposta1_P2.setText(listaPerguntas.get(numPergunta).getResposta().get(0));
+        Resposta2_P2.setText(listaPerguntas.get(numPergunta).getResposta().get(1));
     }
 }

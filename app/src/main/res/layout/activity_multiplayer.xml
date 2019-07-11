@@ -315,4 +315,73 @@
         android:src="@drawable/btn_confirma"
         />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="180"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/bg_time"/>
+
+    <TextView
+        android:id="@+id/tempoP2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="180"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="21dp"
+        android:textColor="#FFF1E7"
+        android:textSize="13dp"
+        android:text="00:00"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="180"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/bg_pontos"/>
+
+
+    <TextView
+        android:id="@+id/pontosP2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="180"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#CCECD7"
+        android:textSize="15dp"
+        android:text="1"/>
+
+    <TextView
+        android:id="@+id/txtAcertouP2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="180"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        android:textColor="#4AC677"
+        android:text="ACERTOU! +1"/>
+
+    <TextView
+        android:id="@+id/txtErrouP2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="180"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        android:textColor="#C67C4A"
+        android:text="ERROU! -1"/>
+
 </RelativeLayout>
