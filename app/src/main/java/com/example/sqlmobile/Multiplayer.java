@@ -21,6 +21,7 @@ public class Multiplayer extends AppCompatActivity {
     ImageView bg_Resposta1_P2, bg_Resposta1_clicked_P2, bg_Resposta2_P2, bg_Resposta2_clicked_P2;
     ImageView btn_confirma;
     ImageView btn_confirma_P2;
+    ImageView bg_fim, bg_txt_fim;
 
     TextView txtAcertou, txtAcertouP2;
     TextView txtErrou, txtErrouP2;
@@ -28,6 +29,8 @@ public class Multiplayer extends AppCompatActivity {
     TextView tempoP1, tempoP2;
 
     TextView pontosP1, pontosP2;
+
+    TextView txtParabens;
 
     Usuario player1 = new Usuario();
     Usuario player2 = new Usuario();
@@ -67,8 +70,13 @@ public class Multiplayer extends AppCompatActivity {
         pontosP1 = findViewById(R.id.pontosP1);
         pontosP2 = findViewById(R.id.pontosP2);
 
+        txtParabens = findViewById(R.id.txtParabens);
+
         btn_confirma = findViewById(R.id.btn_confirma);
         btn_confirma_P2 = findViewById(R.id.btn_confirma_P2);
+
+        bg_fim = findViewById(R.id.bg_fim);
+        bg_txt_fim = findViewById(R.id.bg_txt_fim);
 
         txtAcertou = findViewById(R.id.txtAcertou);
         txtErrou = findViewById(R.id.txtErrou);
@@ -78,6 +86,8 @@ public class Multiplayer extends AppCompatActivity {
         // Abaixo: Instanciando e inicializando objetos e atributos
         player1.setPontuacao(0);
         player2.setPontuacao(0);
+        player1.setNome("Player 1");
+        player2.setNome("Player 2");
 
         Pergunta pergunta1 = new Pergunta(); // Fazendo desta forma como exemplo, a partir deste código...
         pergunta1.setPergunta("Select from blabla"); // ...é possível carregar a lista com um Database
@@ -124,21 +134,7 @@ public class Multiplayer extends AppCompatActivity {
 
         //FIM INSTANCIANDO E INICIALIZANDO
 
-        //Abaixo: levando valores para o Front-End
-        pontosP1.setText(Integer.toString(player1.getPontuacao()));
-        pontosP2.setText(Integer.toString(player2.getPontuacao()));
-
-        atualizarPerguntaP1(controladores.getPerguntaP1());
-        atualizarPerguntaP2(controladores.getPerguntaP2());
-        //FIM COLOCANDO VALORES FRONT-END
-
-        txtAcertou.setVisibility(View.INVISIBLE);
-        txtErrou.setVisibility(View.INVISIBLE);
-        txtAcertouP2.setVisibility(View.INVISIBLE);
-        txtErrouP2.setVisibility(View.INVISIBLE);
-
-        bg_Resposta1_clicked.setVisibility(View.INVISIBLE);
-        bg_Resposta2_clicked.setVisibility(View.INVISIBLE);
+        organizaFront(); //COLOCANDO VALORES FRONT-END
 
         bg_Resposta1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,7 +185,7 @@ public class Multiplayer extends AppCompatActivity {
             }
         });
 
-        new CountDownTimer(130000, 1000) {
+        new CountDownTimer(30000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 int secondos = (int) (millisUntilFinished / 1000);
@@ -202,8 +198,7 @@ public class Multiplayer extends AppCompatActivity {
             }
 
             public void onFinish() {
-                tempoP1.setText("FIM!");
-                tempoP2.setText("FIM!");
+                finalizaJogo();
             }
         }.start();
 
@@ -268,5 +263,36 @@ public class Multiplayer extends AppCompatActivity {
         PerguntaPlayer2.setText(listaPerguntas.get(numPergunta).getPergunta());
         Resposta1_P2.setText(listaPerguntas.get(numPergunta).getResposta().get(0));
         Resposta2_P2.setText(listaPerguntas.get(numPergunta).getResposta().get(1));
+    }
+
+    public void organizaFront(){
+        pontosP1.setText(Integer.toString(player1.getPontuacao()));
+        pontosP2.setText(Integer.toString(player2.getPontuacao()));
+
+        txtAcertou.setVisibility(View.INVISIBLE);
+        txtErrou.setVisibility(View.INVISIBLE);
+        txtAcertouP2.setVisibility(View.INVISIBLE);
+        txtErrouP2.setVisibility(View.INVISIBLE);
+
+        bg_Resposta1_clicked.setVisibility(View.INVISIBLE);
+        bg_Resposta2_clicked.setVisibility(View.INVISIBLE);
+
+        txtParabens.setVisibility(View.INVISIBLE);
+        bg_txt_fim.setVisibility(View.INVISIBLE);
+        bg_fim.setVisibility(View.INVISIBLE);
+
+        atualizarPerguntaP1(controladores.getPerguntaP1()); // ta faltando instanciar na posição 0
+        atualizarPerguntaP2(controladores.getPerguntaP2());
+    }
+
+    public void finalizaJogo(){
+        tempoP1.setText("FIM!");
+        tempoP2.setText("FIM!");
+
+        txtParabens.setVisibility(View.VISIBLE);
+        bg_txt_fim.setVisibility(View.VISIBLE);
+        bg_fim.setVisibility(View.VISIBLE);
+
+        txtParabens.setText(controladores.nomeVencedor(player1, player2));// Colocar frame por cima do resto para não poder clicar mais
     }
 }
