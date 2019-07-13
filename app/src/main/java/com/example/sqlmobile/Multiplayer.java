@@ -5,6 +5,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,10 +16,10 @@ import java.util.List;
 public class Multiplayer extends AppCompatActivity {
 
     TextView PerguntaPlayer1, PerguntaPlayer2;
-    TextView Resposta1, Resposta2, Resposta1_P2, Resposta2_P2;
+    TextView Resposta1, Resposta2, Resposta3, Resposta1_P2, Resposta2_P2, Resposta3_P2;
 
-    ImageView bg_Resposta1, bg_Resposta1_clicked, bg_Resposta2, bg_Resposta2_clicked;
-    ImageView bg_Resposta1_P2, bg_Resposta1_clicked_P2, bg_Resposta2_P2, bg_Resposta2_clicked_P2;
+    ImageView bg_Resposta1, bg_Resposta1_clicked, bg_Resposta2, bg_Resposta2_clicked, bg_Resposta3, bg_Resposta3_clicked;
+    ImageView bg_Resposta1_P2, bg_Resposta1_clicked_P2, bg_Resposta2_P2, bg_Resposta2_clicked_P2, bg_Resposta3_P2, bg_Resposta3_clicked_P2;
     ImageView btn_confirma;
     ImageView btn_confirma_P2;
     ImageView bg_fim, bg_txt_fim;
@@ -51,18 +52,24 @@ public class Multiplayer extends AppCompatActivity {
 
         Resposta1 = findViewById(R.id.Resposta1);
         Resposta2 = findViewById(R.id.Resposta2);
+        Resposta3 = findViewById(R.id.Resposta3);
         Resposta1_P2 = findViewById(R.id.Resposta1_P2);
         Resposta2_P2 = findViewById(R.id.Resposta2_P2);
+        Resposta3_P2 = findViewById(R.id.Resposta3_P2);
 
         bg_Resposta1 = findViewById(R.id.bg_Resposta1);
         bg_Resposta1_clicked = findViewById(R.id.bg_Resposta1_clicked);
         bg_Resposta2 = findViewById(R.id.bg_Resposta2);
         bg_Resposta2_clicked = findViewById(R.id.bg_Resposta2_clicked);
+        bg_Resposta3 = findViewById(R.id.bg_Resposta3);
+        bg_Resposta3_clicked = findViewById(R.id.bg_Resposta3_clicked);
 
         bg_Resposta1_P2 = findViewById(R.id.bg_Resposta1_P2);
         bg_Resposta1_clicked_P2 = findViewById(R.id.bg_Resposta1_clicked_P2);
         bg_Resposta2_P2 = findViewById(R.id.bg_Resposta2_P2);
         bg_Resposta2_clicked_P2 = findViewById(R.id.bg_Resposta2_clicked_P2);
+        bg_Resposta3_P2 = findViewById(R.id.bg_Resposta3_P2);
+        bg_Resposta3_clicked_P2 = findViewById(R.id.bg_Resposta3_clicked_P2);
 
         tempoP1 = findViewById(R.id.tempoP1);
         tempoP2 = findViewById(R.id.tempoP2);
@@ -115,29 +122,32 @@ public class Multiplayer extends AppCompatActivity {
         pergunta3.setPergunta("Select nova pergunta");
         pergunta3.getResposta().add("Outra nova resposta");
         pergunta3.getResposta().add("Outra resposta de novo");
-        pergunta3.setRespostaCerta(3);
+        pergunta3.setRespostaCerta(2);
         listaPerguntas.add(pergunta3);
 
         // Lista de Perguntas do Player 2
         Pergunta perguntaP2_1 = new Pergunta();
-        perguntaP2_1.setPergunta("Select outra pergunta");
-        perguntaP2_1.getResposta().add("Outra resposta");
-        perguntaP2_1.getResposta().add("Outra resposta de novo");
-        perguntaP2_1.setRespostaCerta(1);
+        perguntaP2_1.setPergunta("Qual dos seguintes NÃO é um tipo de join usado em SQL?");
+        perguntaP2_1.getResposta().add("INNER JOIN");
+        perguntaP2_1.getResposta().add("EXTRA JOIN");
+        perguntaP2_1.getResposta().add("OUTER JOIN");
+        perguntaP2_1.setRespostaCerta(2);
         listaPerguntasP2.add(perguntaP2_1);
 
         Pergunta perguntaP2_2 = new Pergunta();
-        perguntaP2_2.setPergunta("Select uma outra pergunta");
-        perguntaP2_2.getResposta().add("Outra nova resposta");
-        perguntaP2_2.getResposta().add("Outra resposta de novo");
+        perguntaP2_2.setPergunta("Para excluir um registro único de uma tabela, qual das seguintes declarações pode ser usada?");
+        perguntaP2_2.getResposta().add("DELETE");
+        perguntaP2_2.getResposta().add("REMOVE");
+        perguntaP2_2.getResposta().add("TRUNCATE");
         perguntaP2_2.setRespostaCerta(2);
         listaPerguntasP2.add(perguntaP2_2);
 
         Pergunta perguntaP2_3 = new Pergunta();
-        perguntaP2_3.setPergunta("Select FROM outra pergunta");
-        perguntaP2_3.getResposta().add("Nova resposta");
-        perguntaP2_3.getResposta().add("Outra resposta de novo");
-        perguntaP2_3.setRespostaCerta(3);
+        perguntaP2_3.setPergunta("Caso você necessite inserir um novo registro no banco de dados, qual declaração deve utilizar?");
+        perguntaP2_3.getResposta().add("INSERT INTO");
+        perguntaP2_3.getResposta().add("ADD REGISTER");
+        perguntaP2_3.getResposta().add("NEW DATA");
+        perguntaP2_3.setRespostaCerta(1);
         listaPerguntasP2.add(perguntaP2_3);
 
         //FIM INSTANCIANDO E INICIALIZANDO
@@ -152,6 +162,8 @@ public class Multiplayer extends AppCompatActivity {
                 bg_Resposta2.setVisibility(View.VISIBLE);
                 bg_Resposta1_clicked.setVisibility(View.VISIBLE);
                 bg_Resposta1.setVisibility(View.INVISIBLE);
+                bg_Resposta3_clicked.setVisibility(View.INVISIBLE);
+                bg_Resposta3.setVisibility(View.VISIBLE);
             }
         });
 
@@ -163,6 +175,21 @@ public class Multiplayer extends AppCompatActivity {
                 bg_Resposta1.setVisibility(View.VISIBLE);
                 bg_Resposta2_clicked.setVisibility(View.VISIBLE);
                 bg_Resposta2.setVisibility(View.INVISIBLE);
+                bg_Resposta3_clicked.setVisibility(View.INVISIBLE);
+                bg_Resposta3.setVisibility(View.VISIBLE);
+            }
+        });
+
+        bg_Resposta3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listaPerguntas.get(0).setRespostaMarcada(2);
+                bg_Resposta1_clicked.setVisibility(View.INVISIBLE);
+                bg_Resposta1.setVisibility(View.VISIBLE);
+                bg_Resposta2_clicked.setVisibility(View.INVISIBLE);
+                bg_Resposta2.setVisibility(View.VISIBLE);
+                bg_Resposta3_clicked.setVisibility(View.VISIBLE);
+                bg_Resposta3.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -179,6 +206,8 @@ public class Multiplayer extends AppCompatActivity {
                 bg_Resposta2_P2.setVisibility(View.VISIBLE);
                 bg_Resposta1_clicked_P2.setVisibility(View.VISIBLE);
                 bg_Resposta1_P2.setVisibility(View.INVISIBLE);
+                bg_Resposta3_clicked_P2.setVisibility(View.INVISIBLE);
+                bg_Resposta3_P2.setVisibility(View.VISIBLE);
             }
         });
 
@@ -190,6 +219,21 @@ public class Multiplayer extends AppCompatActivity {
                 bg_Resposta1_P2.setVisibility(View.VISIBLE);
                 bg_Resposta2_clicked_P2.setVisibility(View.VISIBLE);
                 bg_Resposta2_P2.setVisibility(View.INVISIBLE);
+                bg_Resposta3_clicked_P2.setVisibility(View.INVISIBLE);
+                bg_Resposta3_P2.setVisibility(View.VISIBLE);
+            }
+        });
+
+        bg_Resposta3_P2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listaPerguntas.get(1).setRespostaMarcada(2);
+                bg_Resposta1_clicked_P2.setVisibility(View.INVISIBLE);
+                bg_Resposta1_P2.setVisibility(View.VISIBLE);
+                bg_Resposta2_clicked_P2.setVisibility(View.INVISIBLE);
+                bg_Resposta2_P2.setVisibility(View.VISIBLE);
+                bg_Resposta3_clicked_P2.setVisibility(View.VISIBLE);
+                bg_Resposta3_P2.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -223,6 +267,8 @@ public class Multiplayer extends AppCompatActivity {
                     mostrarTexto(txtErrou);
                     player1.setPontuacao(player1.getPontuacao()-1);
                     pontosP1.setText(Integer.toString(player1.getPontuacao()));
+                    controladores.setPerguntaP1(controladores.getPerguntaP1()+1);
+                    atualizarPerguntaP1(controladores.getPerguntaP1());
                 }
             }
         });
@@ -240,6 +286,8 @@ public class Multiplayer extends AppCompatActivity {
                     mostrarTexto(txtErrouP2);
                     player2.setPontuacao(player2.getPontuacao()-1);
                     pontosP2.setText(Integer.toString(player2.getPontuacao()));
+                    controladores.setPerguntaP2(controladores.getPerguntaP2()+1);
+                    atualizarPerguntaP2(controladores.getPerguntaP2());
                 }
             }
         });
@@ -265,12 +313,15 @@ public class Multiplayer extends AppCompatActivity {
         PerguntaPlayer1.setText(listaPerguntas.get(numPergunta).getPergunta());
         Resposta1.setText(listaPerguntas.get(numPergunta).getResposta().get(0));
         Resposta2.setText(listaPerguntas.get(numPergunta).getResposta().get(1));
+        //Resposta3.setText(listaPerguntas.get(numPergunta).getResposta().get(2));
     }
 
     public void atualizarPerguntaP2(int numPergunta){ // Abstrair para os dois jogadores
-        PerguntaPlayer2.setText(listaPerguntas.get(numPergunta).getPergunta());
-        Resposta1_P2.setText(listaPerguntas.get(numPergunta).getResposta().get(0));
-        Resposta2_P2.setText(listaPerguntas.get(numPergunta).getResposta().get(1));
+        PerguntaPlayer2.setText(listaPerguntasP2.get(numPergunta).getPergunta());
+        PerguntaPlayer2.setGravity(Gravity.CENTER);
+        Resposta1_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(0));
+        Resposta2_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(1));
+        Resposta3_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(2));
     }
 
     public void organizaFront(){
@@ -284,6 +335,7 @@ public class Multiplayer extends AppCompatActivity {
 
         bg_Resposta1_clicked.setVisibility(View.INVISIBLE);
         bg_Resposta2_clicked.setVisibility(View.INVISIBLE);
+        bg_Resposta3_clicked.setVisibility(View.INVISIBLE);
 
         txtParabens.setVisibility(View.INVISIBLE);
         bg_txt_fim.setVisibility(View.INVISIBLE);
@@ -316,7 +368,7 @@ public class Multiplayer extends AppCompatActivity {
 
         Usuario vencedor = controladores.testaVencedor(player1, player2);
 
-        txtParabens.setText("PARABÉNS: " + vencedor.getNome());// Colocar frame por cima do resto para não poder clicar mais (testar PNG com opacidade 50%)
+        txtParabens.setText("PARABÉNS: " + vencedor.getNome());// Fazer, de alguma forma, não ser possível clicar nos botões por quando aparecer essa janela
         if (vencedor.getId() == 1){txtParabens.setRotation(180);}
         nomesP1.setText(player1.getNome() + "  VS  " + player2.getNome());
         nomesP2.setText(player1.getNome() + "  VS  " + player2.getNome());

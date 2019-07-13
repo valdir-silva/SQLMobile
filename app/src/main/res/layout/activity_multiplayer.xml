@@ -18,34 +18,16 @@
         />
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/PerguntaPlayer1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/line"
+        android:gravity="center"
         android:layout_marginTop="-160dp"
         android:textStyle="bold"
         android:textSize="14dp"
         android:text="Qual o resultado da query abaixo?"
-        />
-
-    <ImageView
-        android:id="@+id/bg_PerguntaPlayer1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:layout_below="@id/title"
-        android:src="@drawable/bg_text"
-        />
-    <TextView
-        android:id="@+id/PerguntaPlayer1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/bg_PerguntaPlayer1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:text="SELECT FROM *"
         />
 
     <ImageView
@@ -54,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:layout_below="@id/bg_PerguntaPlayer1"
+        android:layout_below="@id/PerguntaPlayer1"
         android:src="@drawable/bg_text_white"
         />
 
@@ -64,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:layout_below="@id/bg_PerguntaPlayer1"
+        android:layout_below="@id/PerguntaPlayer1"
         android:src="@drawable/bg_text_white_clicked"
         />
 
@@ -79,14 +61,14 @@
         />
 
     <ImageView
-        android:id="@+id/bg_Resposta2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:layout_below="@id/bg_Resposta1"
-        android:src="@drawable/bg_text_white"
-        />
+    android:id="@+id/bg_Resposta2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="15dp"
+    android:layout_below="@id/bg_Resposta1"
+    android:src="@drawable/bg_text_white"
+    />
 
     <ImageView
         android:id="@+id/bg_Resposta2_clicked"
@@ -109,12 +91,42 @@
         />
 
     <ImageView
+        android:id="@+id/bg_Resposta3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/bg_Resposta2"
+        android:src="@drawable/bg_text_white"
+        />
+
+    <ImageView
+        android:id="@+id/bg_Resposta3_clicked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/bg_Resposta2"
+        android:src="@drawable/bg_text_white_clicked"
+        />
+
+    <TextView
+        android:id="@+id/Resposta3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/bg_Resposta3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="Quisque non metus ac lectus"
+        />
+
+    <ImageView
         android:id="@+id/btn_pular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:layout_below="@id/bg_Resposta2"
+        android:layout_below="@id/bg_Resposta3"
         android:src="@drawable/btn_pular"
         />
 
@@ -194,7 +206,7 @@
     <!-- PLAYER 2 -->
 
     <TextView
-        android:id="@+id/titleP2"
+        android:id="@+id/PerguntaPlayer2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:rotation="180"
@@ -208,34 +220,13 @@
         />
 
     <ImageView
-        android:id="@+id/bg_PerguntaPlayer2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:rotation="180"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="-85dp"
-        android:layout_below="@id/titleP2"
-        android:src="@drawable/bg_text"
-        />
-    <TextView
-        android:id="@+id/PerguntaPlayer2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:rotation="180"
-        android:layout_alignTop="@id/bg_PerguntaPlayer2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:text="SELECT FROM *"
-        />
-
-    <ImageView
         android:id="@+id/bg_Resposta1_P2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:rotation="180"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-100dp"
-        android:layout_below="@id/bg_PerguntaPlayer2"
+        android:layout_below="@id/PerguntaPlayer2"
         android:src="@drawable/bg_text_white"
         />
 
@@ -294,13 +285,46 @@
         />
 
     <ImageView
+        android:id="@+id/bg_Resposta3_P2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="180"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-75dp"
+        android:layout_below="@id/bg_Resposta2_P2"
+        android:src="@drawable/bg_text_white"
+        />
+
+    <ImageView
+        android:id="@+id/bg_Resposta3_clicked_P2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="180"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-75dp"
+        android:layout_below="@id/bg_Resposta2_P2"
+        android:src="@drawable/bg_text_white_clicked"
+        />
+
+    <TextView
+        android:id="@+id/Resposta3_P2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="180"
+        android:layout_alignTop="@id/bg_Resposta3_P2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="Quisque non metus ac lectus"
+        />
+
+    <ImageView
         android:id="@+id/btn_pular_P2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:rotation="180"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-90dp"
-        android:layout_below="@id/bg_Resposta2_P2"
+        android:layout_below="@id/bg_Resposta3_P2"
         android:src="@drawable/btn_pular"
         />
 
