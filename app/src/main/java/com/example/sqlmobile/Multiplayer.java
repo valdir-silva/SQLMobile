@@ -30,7 +30,7 @@ public class Multiplayer extends AppCompatActivity {
 
     TextView pontosP1, pontosP2;
 
-    TextView txtParabens;
+    TextView txtParabens, nomesP1, nomesP2, pontosP1_P1, pontosP2_P1, pontosP1_P2, pontosP2_P2;
 
     Usuario player1 = new Usuario();
     Usuario player2 = new Usuario();
@@ -71,6 +71,12 @@ public class Multiplayer extends AppCompatActivity {
         pontosP2 = findViewById(R.id.pontosP2);
 
         txtParabens = findViewById(R.id.txtParabens);
+        nomesP1 = findViewById(R.id.nomesP1);
+        nomesP2 = findViewById(R.id.nomesP2);
+        pontosP1_P1 = findViewById(R.id.pontosP1_P1);
+        pontosP2_P1 = findViewById(R.id.pontosP2_P1);
+        pontosP1_P2 = findViewById(R.id.pontosP1_P2);
+        pontosP2_P2 = findViewById(R.id.pontosP2_P2);
 
         btn_confirma = findViewById(R.id.btn_confirma);
         btn_confirma_P2 = findViewById(R.id.btn_confirma_P2);
@@ -86,7 +92,9 @@ public class Multiplayer extends AppCompatActivity {
         // Abaixo: Instanciando e inicializando objetos e atributos
         player1.setPontuacao(0);
         player2.setPontuacao(0);
-        player1.setNome("Player 1");
+        player1.setId(0);
+        player2.setId(1);
+        player1.setNome("Player 1"); // Limitar nickname para 10 caracteres
         player2.setNome("Player 2");
 
         Pergunta pergunta1 = new Pergunta(); // Fazendo desta forma como exemplo, a partir deste código...
@@ -129,7 +137,7 @@ public class Multiplayer extends AppCompatActivity {
         perguntaP2_3.setPergunta("Select FROM outra pergunta");
         perguntaP2_3.getResposta().add("Nova resposta");
         perguntaP2_3.getResposta().add("Outra resposta de novo");
-        perguntaP2_3.setRespostaCerta(2);
+        perguntaP2_3.setRespostaCerta(3);
         listaPerguntasP2.add(perguntaP2_3);
 
         //FIM INSTANCIANDO E INICIALIZANDO
@@ -281,6 +289,13 @@ public class Multiplayer extends AppCompatActivity {
         bg_txt_fim.setVisibility(View.INVISIBLE);
         bg_fim.setVisibility(View.INVISIBLE);
 
+        nomesP1.setVisibility(View.INVISIBLE);
+        nomesP2.setVisibility(View.INVISIBLE);
+        pontosP1_P1.setVisibility(View.INVISIBLE);
+        pontosP2_P1.setVisibility(View.INVISIBLE);
+        pontosP1_P2.setVisibility(View.INVISIBLE);
+        pontosP2_P2.setVisibility(View.INVISIBLE);
+
         atualizarPerguntaP1(controladores.getPerguntaP1()); // ta faltando instanciar na posição 0
         atualizarPerguntaP2(controladores.getPerguntaP2());
     }
@@ -292,7 +307,22 @@ public class Multiplayer extends AppCompatActivity {
         txtParabens.setVisibility(View.VISIBLE);
         bg_txt_fim.setVisibility(View.VISIBLE);
         bg_fim.setVisibility(View.VISIBLE);
+        nomesP1.setVisibility(View.VISIBLE);
+        nomesP2.setVisibility(View.VISIBLE);
+        pontosP1_P1.setVisibility(View.VISIBLE);
+        pontosP2_P1.setVisibility(View.VISIBLE);
+        pontosP1_P2.setVisibility(View.VISIBLE);
+        pontosP2_P2.setVisibility(View.VISIBLE);
 
-        txtParabens.setText(controladores.nomeVencedor(player1, player2));// Colocar frame por cima do resto para não poder clicar mais
+        Usuario vencedor = controladores.testaVencedor(player1, player2);
+
+        txtParabens.setText("PARABÉNS: " + vencedor.getNome());// Colocar frame por cima do resto para não poder clicar mais (testar PNG com opacidade 50%)
+        if (vencedor.getId() == 1){txtParabens.setRotation(180);}
+        nomesP1.setText(player1.getNome() + "  VS  " + player2.getNome());
+        nomesP2.setText(player1.getNome() + "  VS  " + player2.getNome());
+        pontosP1_P1.setText(Integer.toString(player1.getPontuacao()));
+        pontosP2_P1.setText(Integer.toString(player2.getPontuacao()));
+        pontosP1_P2.setText(Integer.toString(player1.getPontuacao()));
+        pontosP2_P2.setText(Integer.toString(player2.getPontuacao()));
     }
 }

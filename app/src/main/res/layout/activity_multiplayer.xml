@@ -412,4 +412,84 @@
         android:textStyle="bold"
         android:textColor="#FFF"
         android:text="PARABÉNS PLAYER"/>
+
+    <TextView
+        android:id="@+id/nomesP1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@id/bg_fim"
+        android:layout_marginBottom="80dp"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="#C1C1C1"
+        android:text="PLAYER_01  VS  PLAYER_02"/>
+
+    <TextView
+        android:id="@+id/pontosP1_P1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/bg_fim"
+        android:layout_alignLeft="@id/bg_fim"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="90dp"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="#C1C1C1"
+        android:text="01"/>
+
+    <TextView
+        android:id="@+id/pontosP2_P1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/bg_fim"
+        android:layout_alignLeft="@id/bg_fim"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="225dp"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="#C1C1C1"
+        android:text="01"/>
+
+    <TextView
+        android:id="@+id/nomesP2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@id/bg_fim"
+        android:layout_marginTop="80dp"
+        android:rotation="180"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="#C1C1C1"
+        android:text="PLAYER_01  VS  PLAYER_02"/>
+
+    <TextView
+        android:id="@+id/pontosP2_P2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/bg_fim"
+        android:layout_alignLeft="@id/bg_fim"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="90dp"
+        android:rotation="180"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="#C1C1C1"
+        android:text="01"/>
+
+    <TextView
+        android:id="@+id/pontosP1_P2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/bg_fim"
+        android:layout_alignLeft="@id/bg_fim"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="225dp"
+        android:rotation="180"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="#C1C1C1"
+        android:text="01"/>
+
 </RelativeLayout>

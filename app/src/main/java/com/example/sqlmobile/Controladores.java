@@ -5,8 +5,8 @@ public class Controladores {
     private int perguntaP2;
 
     public Controladores(){
-        setPerguntaP1(0);
-        setPerguntaP2(0);
+        setPerguntaP1(1);
+        setPerguntaP2(1);
     }
 
     public int getPerguntaP1() {
@@ -25,14 +25,14 @@ public class Controladores {
         this.perguntaP2 = perguntaP2;
     }
 
-    public String nomeVencedor(Usuario p1, Usuario p2){
+    public Usuario testaVencedor(Usuario p1, Usuario p2){
 
-        String vencedor = "Empate";
+        Usuario vencedor;
 
         if(p1.getPontuacao() > p2.getPontuacao()){
-            vencedor = p1.getNome();
+            vencedor = p1;
         } else {
-            vencedor = p2.getNome();
+            vencedor = p2;
         }
 
         return vencedor;
