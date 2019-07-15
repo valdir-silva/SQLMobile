@@ -3,10 +3,14 @@ package com.example.sqlmobile;
 public class Controladores {
     private int perguntaP1; // Abstrair para os dois Players
     private int perguntaP2;
+    private boolean liberaProxPerguntaP1;
+    private boolean liberaProxPerguntaP2;
 
     public Controladores(){
-        setPerguntaP1(1);
-        setPerguntaP2(1);
+        this.setPerguntaP1(0);
+        this.setPerguntaP2(0);
+        this.setLiberaProxPerguntaP1(false);
+        this.setLiberaProxPerguntaP2(false);
     }
 
     public int getPerguntaP1() {
@@ -34,7 +38,22 @@ public class Controladores {
         } else {
             vencedor = p2;
         }
-
         return vencedor;
+    }
+
+    public boolean isLiberaProxPerguntaP1() {
+        return liberaProxPerguntaP1;
+    }
+
+    public void setLiberaProxPerguntaP1(boolean liberaProxPerguntaP1) {
+        this.liberaProxPerguntaP1 = liberaProxPerguntaP1;
+    }
+
+    public boolean isLiberaProxPerguntaP2() {
+        return liberaProxPerguntaP2;
+    }
+
+    public void setLiberaProxPerguntaP2(boolean liberaProxPerguntaP2) {
+        this.liberaProxPerguntaP2 = liberaProxPerguntaP2;
     }
 }
