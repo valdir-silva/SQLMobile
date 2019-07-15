@@ -187,6 +187,8 @@ public class Multiplayer extends AppCompatActivity {
         perguntaP2_6.setRespostaCerta(2);
         listaPerguntasP2.add(perguntaP2_6);
 
+
+
         //FIM INSTANCIANDO E INICIALIZANDO
 
         organizaFront(); //COLOCANDO VALORES FRONT-END
@@ -373,7 +375,7 @@ public class Multiplayer extends AppCompatActivity {
 
     public void atualizarPerguntaP2(int numPergunta){ // Abstrair para os dois jogadores // ADICIONAR TEMPO DE 5 SEGUNDOS PARA TROCAR DE PERGUNTA, ATÉ LÁ, VOLTAR E CONFIRMA FICAM CINZA
         PerguntaPlayer2.setText(listaPerguntasP2.get(numPergunta).getPergunta());
-        PerguntaPlayer2.setGravity(Gravity.CENTER_VERTICAL);
+        PerguntaPlayer2.setGravity(Gravity.CENTER_HORIZONTAL);
         Resposta1_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(0));
         Resposta2_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(1));
         Resposta3_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(2));
