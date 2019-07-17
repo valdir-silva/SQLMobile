@@ -389,12 +389,12 @@ public class Multiplayer extends AppCompatActivity {
     }
 
     public void atualizarPerguntaP2(int numPergunta){ // Abstrair para os dois jogadores // ADICIONAR TEMPO DE 5 SEGUNDOS PARA TROCAR DE PERGUNTA, ATÉ LÁ, VOLTAR E CONFIRMA FICAM CINZA
-        if (listaPerguntasP2.get(numPergunta) != null) {
+        try {
             PerguntaPlayer2.setText(listaPerguntasP2.get(numPergunta).getPergunta());
             Resposta1_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(0));
             Resposta2_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(1));
             Resposta3_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(2));
-        } else {
+        } catch(IndexOutOfBoundsException e) {
             controladores.setFinalizaPlayer2(true);
             finalizaPlayer2();
         }
