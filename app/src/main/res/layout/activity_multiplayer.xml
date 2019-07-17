@@ -19,10 +19,12 @@
 
     <TextView
         android:id="@+id/PerguntaPlayer1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="385dp"
+        android:layout_height="120dp"
+        android:gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/bg_txt_fim"
+        android:layout_marginTop="-40dp"
         android:textStyle="bold"
         android:textSize="14dp"
         android:text="Qual o resultado da query abaixo?"
@@ -33,7 +35,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
         android:layout_below="@id/PerguntaPlayer1"
         android:src="@drawable/bg_text_white"
         />
@@ -43,7 +44,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
         android:layout_below="@id/PerguntaPlayer1"
         android:src="@drawable/bg_text_white_clicked"
         />
@@ -230,6 +230,19 @@
         android:textStyle="bold"
         android:textColor="#8F8F8F"
         android:text="0"/>
+
+    <TextView
+        android:id="@+id/txtFinalizouPlayer"
+        android:layout_width="400dp"
+        android:layout_height="250dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="#8F8F8F"
+        android:text="FIM"/>
 
     <!-- PLAYER 2 -->
 
@@ -469,6 +482,19 @@
         android:textStyle="bold"
         android:textColor="#8F8F8F"
         android:text="0"/>
+
+    <TextView
+        android:id="@+id/txtFinalizouPlayer2"
+        android:layout_width="400dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:rotation="180"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="#8F8F8F"
+        android:text="FIM"/>
 
     <!-- JANELA DE FIM DE JOGO !-->
 

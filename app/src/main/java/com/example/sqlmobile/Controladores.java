@@ -5,12 +5,16 @@ public class Controladores {
     private int perguntaP2;
     private boolean liberaProxPerguntaP1;
     private boolean liberaProxPerguntaP2;
+    private boolean finalizaPlayer1;
+    private boolean finalizaPlayer2;
 
     public Controladores(){
         this.setPerguntaP1(0);
         this.setPerguntaP2(0);
         this.setLiberaProxPerguntaP1(false);
         this.setLiberaProxPerguntaP2(false);
+        this.setFinalizaPlayer1(false);
+        this.setFinalizaPlayer2(false);
     }
 
     public int getPerguntaP1() {
@@ -55,5 +59,21 @@ public class Controladores {
 
     public void setLiberaProxPerguntaP2(boolean liberaProxPerguntaP2) {
         this.liberaProxPerguntaP2 = liberaProxPerguntaP2;
+    }
+
+    public boolean isFinalizaPlayer1() {
+        return finalizaPlayer1;
+    }
+
+    public void setFinalizaPlayer1(boolean finalizaPlayer1) {
+        this.finalizaPlayer1 = finalizaPlayer1;
+    }
+
+    public boolean isFinalizaPlayer2() {
+        return finalizaPlayer2;
+    }
+
+    public void setFinalizaPlayer2(boolean finalizaPlayer2) {
+        this.finalizaPlayer2 = finalizaPlayer2;
     }
 }

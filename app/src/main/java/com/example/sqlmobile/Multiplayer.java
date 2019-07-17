@@ -36,6 +36,8 @@ public class Multiplayer extends AppCompatActivity {
 
     TextView txtParabens, nomesP1, nomesP2, pontosP1_P1, pontosP2_P1, pontosP1_P2, pontosP2_P2;
 
+    TextView txtFinalizouPlayer, txtFinalizouPlayer2;
+
     Usuario player1 = new Usuario();
     Usuario player2 = new Usuario();
 
@@ -109,6 +111,9 @@ public class Multiplayer extends AppCompatActivity {
         txtAcertouP2 = findViewById(R.id.txtAcertouP2);
         txtErrouP2 = findViewById(R.id.txtErrouP2);
 
+        txtFinalizouPlayer = findViewById(R.id.txtFinalizouPlayer);
+        txtFinalizouPlayer2 = findViewById(R.id.txtFinalizouPlayer2);
+
         // Abaixo: Instanciando e inicializando objetos e atributos
         player1.setPontuacao(0);
         player2.setPontuacao(0);
@@ -121,6 +126,7 @@ public class Multiplayer extends AppCompatActivity {
         pergunta1.setPergunta("Select from blabla"); // ...é possível carregar a lista com um Database
         pergunta1.getResposta().add("Teste de resposta");
         pergunta1.getResposta().add("Teste de resposta");
+        pergunta1.getResposta().add("Teste de resposta");
         pergunta1.setRespostaCerta(1);
         listaPerguntas.add(pergunta1);
 
@@ -128,12 +134,14 @@ public class Multiplayer extends AppCompatActivity {
         pergunta2.setPergunta("Select outra pergunta");
         pergunta2.getResposta().add("Outra resposta");
         pergunta2.getResposta().add("Outra resposta de novo");
+        pergunta2.getResposta().add("Outra resposta de novo");
         pergunta2.setRespostaCerta(2);
         listaPerguntas.add(pergunta2);
 
         Pergunta pergunta3 = new Pergunta();
         pergunta3.setPergunta("Select nova pergunta");
         pergunta3.getResposta().add("Outra nova resposta");
+        pergunta3.getResposta().add("Outra resposta de novo");
         pergunta3.getResposta().add("Outra resposta de novo");
         pergunta3.setRespostaCerta(2);
         listaPerguntas.add(pergunta3);
@@ -291,6 +299,8 @@ public class Multiplayer extends AppCompatActivity {
             }
 
             public void onFinish() {
+                finalizaPlayer();
+                finalizaPlayer2();
                 finalizaJogo();
             }
         }.start();
@@ -367,18 +377,27 @@ public class Multiplayer extends AppCompatActivity {
     }
 
     public void atualizarPerguntaP1(int numPergunta){ // Abstrair para os dois jogadores // ADICIONAR TEMPO DE 5 SEGUNDOS PARA TROCAR DE PERGUNTA, ATÉ LÁ, VOLTAR E CONFIRMA FICAM CINZA
-        PerguntaPlayer1.setText(listaPerguntas.get(numPergunta).getPergunta());
-        Resposta1.setText(listaPerguntas.get(numPergunta).getResposta().get(0));
-        Resposta2.setText(listaPerguntas.get(numPergunta).getResposta().get(1));
-        //Resposta3.setText(listaPerguntas.get(numPergunta).getResposta().get(2));
+        try {
+            PerguntaPlayer1.setText(listaPerguntas.get(numPergunta).getPergunta());
+            Resposta1.setText(listaPerguntas.get(numPergunta).getResposta().get(0));
+            Resposta2.setText(listaPerguntas.get(numPergunta).getResposta().get(1));
+            Resposta3.setText(listaPerguntas.get(numPergunta).getResposta().get(2));
+        } catch (IndexOutOfBoundsException e){
+            controladores.setFinalizaPlayer1(true);
+            finalizaPlayer();
+        }
     }
 
     public void atualizarPerguntaP2(int numPergunta){ // Abstrair para os dois jogadores // ADICIONAR TEMPO DE 5 SEGUNDOS PARA TROCAR DE PERGUNTA, ATÉ LÁ, VOLTAR E CONFIRMA FICAM CINZA
-        PerguntaPlayer2.setText(listaPerguntasP2.get(numPergunta).getPergunta());
-        PerguntaPlayer2.setGravity(Gravity.CENTER_HORIZONTAL);
-        Resposta1_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(0));
-        Resposta2_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(1));
-        Resposta3_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(2));
+        if (listaPerguntasP2.get(numPergunta) != null) {
+            PerguntaPlayer2.setText(listaPerguntasP2.get(numPergunta).getPergunta());
+            Resposta1_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(0));
+            Resposta2_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(1));
+            Resposta3_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(2));
+        } else {
+            controladores.setFinalizaPlayer2(true);
+            finalizaPlayer2();
+        }
     }
 
     public void organizaFront(){
@@ -415,7 +434,10 @@ public class Multiplayer extends AppCompatActivity {
         pontosP1_P2.setVisibility(View.INVISIBLE);
         pontosP2_P2.setVisibility(View.INVISIBLE);
 
-        atualizarPerguntaP1(controladores.getPerguntaP1()); // ta faltando instanciar na posição 0
+        txtFinalizouPlayer.setVisibility(View.INVISIBLE);
+        txtFinalizouPlayer2.setVisibility(View.INVISIBLE);
+
+        atualizarPerguntaP1(controladores.getPerguntaP1());
         atualizarPerguntaP2(controladores.getPerguntaP2());
     }
 
@@ -446,60 +468,111 @@ public class Multiplayer extends AppCompatActivity {
     }
 
     public void travaProximaPergunta(){ // Abstrair método para os dois players
-        controladores.setLiberaProxPerguntaP1(false);
+        if (!controladores.isFinalizaPlayer1()){
+            controladores.setLiberaProxPerguntaP1(false);
 
-        btn_pular.setVisibility(View.INVISIBLE);
-        btn_pular_lock.setVisibility(View.VISIBLE);
-        btn_confirma.setVisibility(View.INVISIBLE);
-        btn_confirma_lock.setVisibility(View.VISIBLE);
+            btn_pular.setVisibility(View.INVISIBLE);
+            btn_pular_lock.setVisibility(View.VISIBLE);
+            btn_confirma.setVisibility(View.INVISIBLE);
+            btn_confirma_lock.setVisibility(View.VISIBLE);
 
-        new CountDownTimer(6000, 1000) {
-            public void onTick(long millisUntilFinished) {
+            new CountDownTimer(6000, 1000) {
+                public void onTick(long millisUntilFinished) {
 
-                int seconds = (int) ((millisUntilFinished / 1000) + 1);
-                if(seconds<=5) {
-                    txtTempoLock.setVisibility(View.VISIBLE);
-                    txtTempoLock.setText(Integer.toString(seconds));
+                    int seconds = (int) ((millisUntilFinished / 1000) + 1);
+                    if(seconds<=5) {
+                        txtTempoLock.setVisibility(View.VISIBLE);
+                        txtTempoLock.setText(Integer.toString(seconds));
+                    }
+
                 }
-
-            }
-            public void onFinish() {
-                btn_pular.setVisibility(View.VISIBLE);
-                btn_pular_lock.setVisibility(View.INVISIBLE);
-                btn_confirma.setVisibility(View.VISIBLE);
-                btn_confirma_lock.setVisibility(View.INVISIBLE);
-                txtTempoLock.setVisibility(View.INVISIBLE);
-                controladores.setLiberaProxPerguntaP1(true);
-            }
-        }.start();
+                public void onFinish() {
+                    btn_pular.setVisibility(View.VISIBLE);
+                    btn_pular_lock.setVisibility(View.INVISIBLE);
+                    btn_confirma.setVisibility(View.VISIBLE);
+                    btn_confirma_lock.setVisibility(View.INVISIBLE);
+                    txtTempoLock.setVisibility(View.INVISIBLE);
+                    controladores.setLiberaProxPerguntaP1(true);
+                }
+            }.start();
+        }
     }
 
     public void travaProximaPerguntaP2(){
-        controladores.setLiberaProxPerguntaP2(false);
+        if(!controladores.isFinalizaPlayer2()){
+            controladores.setLiberaProxPerguntaP2(false);
 
-        btn_pular_P2.setVisibility(View.INVISIBLE);
-        btn_pular_lock_P2.setVisibility(View.VISIBLE);
-        btn_confirma_P2.setVisibility(View.INVISIBLE);
-        btn_confirma_lock_P2.setVisibility(View.VISIBLE);
+            btn_pular_P2.setVisibility(View.INVISIBLE);
+            btn_pular_lock_P2.setVisibility(View.VISIBLE);
+            btn_confirma_P2.setVisibility(View.INVISIBLE);
+            btn_confirma_lock_P2.setVisibility(View.VISIBLE);
 
-        new CountDownTimer(6000, 1000) {
-            public void onTick(long millisUntilFinished) {
+            new CountDownTimer(6000, 1000) {
+                public void onTick(long millisUntilFinished) {
 
-                int seconds = (int) ((millisUntilFinished / 1000) + 1);
-                if(seconds<=5) {
-                    txtTempoLock_P2.setVisibility(View.VISIBLE);
-                    txtTempoLock_P2.setText(Integer.toString(seconds));
+                    int seconds = (int) ((millisUntilFinished / 1000) + 1);
+                    if(seconds<=5) {
+                        txtTempoLock_P2.setVisibility(View.VISIBLE);
+                        txtTempoLock_P2.setText(Integer.toString(seconds));
+                    }
                 }
+                public void onFinish() {
+                    btn_pular_P2.setVisibility(View.VISIBLE);
+                    btn_pular_lock_P2.setVisibility(View.INVISIBLE);
+                    btn_confirma_P2.setVisibility(View.VISIBLE);
+                    btn_confirma_lock_P2.setVisibility(View.INVISIBLE);
+                    txtTempoLock_P2.setVisibility(View.INVISIBLE);
+                    controladores.setLiberaProxPerguntaP2(true);
+                }
+            }.start();
+        }
+    }
 
-            }
-            public void onFinish() {
-                btn_pular_P2.setVisibility(View.VISIBLE);
-                btn_pular_lock_P2.setVisibility(View.INVISIBLE);
-                btn_confirma_P2.setVisibility(View.VISIBLE);
-                btn_confirma_lock_P2.setVisibility(View.INVISIBLE);
-                txtTempoLock_P2.setVisibility(View.INVISIBLE);
-                controladores.setLiberaProxPerguntaP2(true);
-            }
-        }.start();
+    public void finalizaPlayer(){
+        txtFinalizouPlayer.setVisibility(View.VISIBLE);
+
+        PerguntaPlayer1.setVisibility(View.INVISIBLE);
+        bg_Resposta1.setVisibility(View.INVISIBLE);
+        bg_Resposta1_clicked.setVisibility(View.INVISIBLE);
+        Resposta1.setVisibility(View.INVISIBLE);
+
+        bg_Resposta2.setVisibility(View.INVISIBLE);
+        bg_Resposta2_clicked.setVisibility(View.INVISIBLE);
+        Resposta2.setVisibility(View.INVISIBLE);
+
+        bg_Resposta3.setVisibility(View.INVISIBLE);
+        bg_Resposta3_clicked.setVisibility(View.INVISIBLE);
+        Resposta3.setVisibility(View.INVISIBLE);
+
+        btn_confirma.setVisibility(View.INVISIBLE);
+        btn_confirma_lock.setVisibility(View.INVISIBLE);
+        btn_pular.setVisibility(View.INVISIBLE);
+        btn_pular_lock.setVisibility(View.INVISIBLE);
+
+        controladores.setFinalizaPlayer2(true);
+    }
+
+    public void finalizaPlayer2(){
+        txtFinalizouPlayer2.setVisibility(View.VISIBLE);
+
+        PerguntaPlayer2.setVisibility(View.INVISIBLE);
+        bg_Resposta1_P2.setVisibility(View.INVISIBLE);
+        bg_Resposta1_clicked_P2.setVisibility(View.INVISIBLE);
+        Resposta1_P2.setVisibility(View.INVISIBLE);
+
+        bg_Resposta2_P2.setVisibility(View.INVISIBLE);
+        bg_Resposta2_clicked_P2.setVisibility(View.INVISIBLE);
+        Resposta2_P2.setVisibility(View.INVISIBLE);
+
+        bg_Resposta3_P2.setVisibility(View.INVISIBLE);
+        bg_Resposta3_clicked_P2.setVisibility(View.INVISIBLE);
+        Resposta3_P2.setVisibility(View.INVISIBLE);
+
+        btn_confirma_P2.setVisibility(View.INVISIBLE);
+        btn_confirma_lock_P2.setVisibility(View.INVISIBLE);
+        btn_pular_P2.setVisibility(View.INVISIBLE);
+        btn_pular_lock_P2.setVisibility(View.INVISIBLE);
+
+        controladores.setFinalizaPlayer2(true);
     }
 }
