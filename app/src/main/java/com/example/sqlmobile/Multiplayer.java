@@ -206,7 +206,7 @@ public class Multiplayer extends AppCompatActivity {
         bg_Resposta1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listaPerguntas.get(0).setRespostaMarcada(1);
+                listaPerguntas.get(controladores.getPerguntaP1()).setRespostaMarcada(1);
                 bg_Resposta2_clicked.setVisibility(View.INVISIBLE);
                 bg_Resposta2.setVisibility(View.VISIBLE);
                 bg_Resposta1_clicked.setVisibility(View.VISIBLE);
@@ -219,7 +219,7 @@ public class Multiplayer extends AppCompatActivity {
         bg_Resposta2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listaPerguntas.get(0).setRespostaMarcada(2);
+                listaPerguntas.get(controladores.getPerguntaP1()).setRespostaMarcada(2);
                 bg_Resposta1_clicked.setVisibility(View.INVISIBLE);
                 bg_Resposta1.setVisibility(View.VISIBLE);
                 bg_Resposta2_clicked.setVisibility(View.VISIBLE);
@@ -232,7 +232,7 @@ public class Multiplayer extends AppCompatActivity {
         bg_Resposta3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listaPerguntas.get(0).setRespostaMarcada(2);
+                listaPerguntas.get(controladores.getPerguntaP1()).setRespostaMarcada(3);
                 bg_Resposta1_clicked.setVisibility(View.INVISIBLE);
                 bg_Resposta1.setVisibility(View.VISIBLE);
                 bg_Resposta2_clicked.setVisibility(View.INVISIBLE);
@@ -250,7 +250,7 @@ public class Multiplayer extends AppCompatActivity {
         bg_Resposta1_P2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listaPerguntas.get(1).setRespostaMarcada(1);
+                listaPerguntasP2.get(controladores.getPerguntaP2()).setRespostaMarcada(1);
                 bg_Resposta2_clicked_P2.setVisibility(View.INVISIBLE);
                 bg_Resposta2_P2.setVisibility(View.VISIBLE);
                 bg_Resposta1_clicked_P2.setVisibility(View.VISIBLE);
@@ -263,7 +263,7 @@ public class Multiplayer extends AppCompatActivity {
         bg_Resposta2_P2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listaPerguntas.get(1).setRespostaMarcada(2);
+                listaPerguntasP2.get(controladores.getPerguntaP2()).setRespostaMarcada(2);
                 bg_Resposta1_clicked_P2.setVisibility(View.INVISIBLE);
                 bg_Resposta1_P2.setVisibility(View.VISIBLE);
                 bg_Resposta2_clicked_P2.setVisibility(View.VISIBLE);
@@ -276,7 +276,7 @@ public class Multiplayer extends AppCompatActivity {
         bg_Resposta3_P2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listaPerguntas.get(1).setRespostaMarcada(2);
+                listaPerguntasP2.get(controladores.getPerguntaP2()).setRespostaMarcada(3);
                 bg_Resposta1_clicked_P2.setVisibility(View.INVISIBLE);
                 bg_Resposta1_P2.setVisibility(View.VISIBLE);
                 bg_Resposta2_clicked_P2.setVisibility(View.INVISIBLE);
@@ -286,7 +286,7 @@ public class Multiplayer extends AppCompatActivity {
             }
         });
 
-        new CountDownTimer(40000, 1000) {
+        new CountDownTimer(60000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 int secondos = (int) (millisUntilFinished / 1000);
@@ -309,7 +309,7 @@ public class Multiplayer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(controladores.isLiberaProxPerguntaP1()){
-                    if (listaPerguntas.get(0).getRespostaCerta() == listaPerguntas.get(0).getRespostaMarcada()){
+                    if (listaPerguntas.get(controladores.getPerguntaP1()).getRespostaCerta() == listaPerguntas.get(controladores.getPerguntaP1()).getRespostaMarcada()){
                         mostrarTexto(txtAcertou);
                         player1.setPontuacao(player1.getPontuacao()+1);
                     } else {
@@ -328,7 +328,7 @@ public class Multiplayer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (controladores.isLiberaProxPerguntaP2()){
-                    if (listaPerguntas.get(1).getRespostaCerta() == listaPerguntas.get(1).getRespostaMarcada()){
+                    if (listaPerguntasP2.get(controladores.getPerguntaP2()).getRespostaCerta() == listaPerguntasP2.get(controladores.getPerguntaP2()).getRespostaMarcada()){
                         mostrarTexto(txtAcertouP2);
                         player2.setPontuacao(player2.getPontuacao()+1);
                     } else {
@@ -382,6 +382,13 @@ public class Multiplayer extends AppCompatActivity {
             Resposta1.setText(listaPerguntas.get(numPergunta).getResposta().get(0));
             Resposta2.setText(listaPerguntas.get(numPergunta).getResposta().get(1));
             Resposta3.setText(listaPerguntas.get(numPergunta).getResposta().get(2));
+
+            bg_Resposta1.setVisibility(View.VISIBLE);
+            bg_Resposta1_clicked.setVisibility(View.INVISIBLE);
+            bg_Resposta2.setVisibility(View.VISIBLE);
+            bg_Resposta2_clicked.setVisibility(View.INVISIBLE);
+            bg_Resposta3.setVisibility(View.VISIBLE);
+            bg_Resposta3_clicked.setVisibility(View.INVISIBLE);
         } catch (IndexOutOfBoundsException e){
             controladores.setFinalizaPlayer1(true);
             finalizaPlayer();
@@ -394,6 +401,13 @@ public class Multiplayer extends AppCompatActivity {
             Resposta1_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(0));
             Resposta2_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(1));
             Resposta3_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(2));
+
+            bg_Resposta1_P2.setVisibility(View.VISIBLE);
+            bg_Resposta1_clicked_P2.setVisibility(View.INVISIBLE);
+            bg_Resposta2_P2.setVisibility(View.VISIBLE);
+            bg_Resposta2_clicked_P2.setVisibility(View.INVISIBLE);
+            bg_Resposta3_P2.setVisibility(View.VISIBLE);
+            bg_Resposta3_clicked_P2.setVisibility(View.INVISIBLE);
         } catch(IndexOutOfBoundsException e) {
             controladores.setFinalizaPlayer2(true);
             finalizaPlayer2();
