@@ -9,34 +9,24 @@ import android.widget.TextView;
 
 import com.example.sqlmobile.database.PerguntaDAO;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Multiplayer extends AppCompatActivity {
 
-    TextView  PerguntaPlayer1, PerguntaPlayer2;
     TextView  Resposta1, Resposta2, Resposta3, Resposta1_P2, Resposta2_P2, Resposta3_P2;
 
     ImageView bg_Resposta1, bg_Resposta1_clicked, bg_Resposta2, bg_Resposta2_clicked, bg_Resposta3, bg_Resposta3_clicked;
     ImageView bg_Resposta1_P2, bg_Resposta1_clicked_P2, bg_Resposta2_P2, bg_Resposta2_clicked_P2, bg_Resposta3_P2, bg_Resposta3_clicked_P2;
     ImageView btn_pular, btn_pular_P2;
-    ImageView btn_pular_lock, btn_pular_lock_P2;
     ImageView btn_confirma, btn_confirma_P2;
-    ImageView btn_confirma_lock, btn_confirma_lock_P2;
-    TextView txtTempoLock, txtTempoLock_P2;
-    ImageView bg_fim, bg_txt_fim;
-
-    TextView txtAcertou, txtAcertouP2;
-    TextView txtErrou, txtErrouP2;
 
     TextView tempoP1, tempoP2;
 
     TextView pontosP1, pontosP2;
-
-    TextView txtParabens, nomesP1, nomesP2, pontosP1_P1, pontosP2_P1, pontosP1_P2, pontosP2_P2;
-
-    TextView txtFinalizouPlayer, txtFinalizouPlayer2;
 
     Usuario player1 = new Usuario();
     Usuario player2 = new Usuario();
@@ -89,42 +79,6 @@ public class Multiplayer extends AppCompatActivity {
         bg_Resposta2_clicked_P2 = findViewById(R.id.bg_Resposta2_clicked_P2);
         bg_Resposta3_P2 = findViewById(R.id.bg_Resposta3_P2);
         bg_Resposta3_clicked_P2 = findViewById(R.id.bg_Resposta3_clicked_P2);
-
-        tempoP1 = findViewById(R.id.tempoP1);
-        tempoP2 = findViewById(R.id.tempoP2);
-
-        pontosP1 = findViewById(R.id.pontosP1);
-        pontosP2 = findViewById(R.id.pontosP2);
-
-        txtParabens = findViewById(R.id.txtParabens);
-        nomesP1 = findViewById(R.id.nomesP1);
-        nomesP2 = findViewById(R.id.nomesP2);
-        pontosP1_P1 = findViewById(R.id.pontosP1_P1);
-        pontosP2_P1 = findViewById(R.id.pontosP2_P1);
-        pontosP1_P2 = findViewById(R.id.pontosP1_P2);
-        pontosP2_P2 = findViewById(R.id.pontosP2_P2);
-
-        btn_pular_lock = findViewById(R.id.btn_pular_lock);
-        btn_pular_lock_P2 = findViewById(R.id.btn_pular_lock_P2);
-
-
-        btn_confirma_lock = findViewById(R.id.btn_confirma_lock);
-        btn_confirma_lock_P2 = findViewById(R.id.btn_confirma_lock_P2);
-
-
-        txtTempoLock = findViewById(R.id.txtTempoLock);
-        txtTempoLock_P2 = findViewById(R.id.txtTempoLock_P2);
-
-        bg_fim = findViewById(R.id.bg_fim);
-        bg_txt_fim = findViewById(R.id.bg_txt_fim);
-
-        txtAcertou = findViewById(R.id.txtAcertou);
-        txtErrou = findViewById(R.id.txtErrou);
-        txtAcertouP2 = findViewById(R.id.txtAcertouP2);
-        txtErrouP2 = findViewById(R.id.txtErrouP2);
-
-        txtFinalizouPlayer = findViewById(R.id.txtFinalizouPlayer);
-        txtFinalizouPlayer2 = findViewById(R.id.txtFinalizouPlayer2);
 
         // pensar em instanciar objetos diretamente do findviewbyid IMPORTANT (é possível fazer isso e ainda fazer direto nas classes)
 
@@ -196,21 +150,21 @@ public class Multiplayer extends AppCompatActivity {
         player2.getControlador().getImagensPlayer().add((ImageView) findViewById(R.id.btn_pular_lock_P2));
 
         // instanciando novamente, mas botoes especificos para ter maior controle de maneira fácil (pensar em coloca-los uni-los para foreach e n duplicar mais os atributos)
-        player2.getControlador().getBotoes().add(bg_Resposta1_P2);
-        player2.getControlador().getBotoes().add(bg_Resposta2_P2);
-        player2.getControlador().getBotoes().add(bg_Resposta3_P2);
-        player2.getControlador().getBotoes().add(btn_confirma_P2);
-        player2.getControlador().getBotoes().add(btn_pular_P2);
+        player2.getControlador().getBotoes().add((ImageView) findViewById(R.id.bg_Resposta1_P2));
+        player2.getControlador().getBotoes().add((ImageView) findViewById(R.id.bg_Resposta2_P2));
+        player2.getControlador().getBotoes().add((ImageView) findViewById(R.id.bg_Resposta3_P2));
+        player2.getControlador().getBotoes().add((ImageView) findViewById(R.id.btn_confirma_P2));
+        player2.getControlador().getBotoes().add((ImageView) findViewById(R.id.btn_pular_P2));
 
-        player2.getControlador().getBotoesClicked().add(bg_Resposta1_clicked_P2);
-        player2.getControlador().getBotoesClicked().add(bg_Resposta2_clicked_P2);
+        player2.getControlador().getBotoesClicked().add((ImageView) findViewById(R.id.bg_Resposta1_clicked_P2));
+        player2.getControlador().getBotoesClicked().add((ImageView) findViewById(R.id.bg_Resposta2_clicked_P2));
         player2.getControlador().getBotoesClicked().add(bg_Resposta3_clicked_P2);
 
-        player2.getControlador().getBotoesLock().add(btn_confirma_lock_P2);
-        player2.getControlador().getBotoesLock().add(btn_pular_lock_P2);
+        player2.getControlador().getBotoesLock().add((ImageView) findViewById(R.id.btn_confirma_lock_P2));
+        player2.getControlador().getBotoesLock().add((ImageView) findViewById(R.id.btn_pular_lock_P2));
 
         player2.getControlador().setTempo((TextView) findViewById(R.id.tempoP2));
-        player2.getControlador().setTempoLock(txtTempoLock_P2);
+        player2.getControlador().setTempoLock((TextView) findViewById(R.id.txtTempoLock_P2));
         player2.getControlador().setPontos((TextView) findViewById(R.id.pontosP2));
 
         // Populando resto do Front
@@ -312,38 +266,14 @@ public class Multiplayer extends AppCompatActivity {
         btn_confirma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!player1.isTravaPergunta()){ //criar método
-                    if (listaPerguntas.get(player1.getControlador().getPergunta()).getRespostaCerta() == listaPerguntas.get(player1.getControlador().getPergunta()).getRespostaMarcada()){
-                        mostrarTexto(txtAcertou);
-                        player1.setPontuacao(player1.getPontuacao()+1);
-                    } else {
-                        mostrarTexto(txtErrou);
-                        player1.setPontuacao(player1.getPontuacao()-1);
-                    }
-                    pontosP1.setText(Integer.toString(player1.getPontuacao()));
-                    player1.getControlador().setPergunta(player1.getControlador().getPergunta()+1);
-                    atualizarPergunta(player1);
-                    travaProximaPergunta(player1);
-                }
+                confirmaResposta(player1, front);
             }
         });
 
         btn_confirma_P2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!player2.isTravaPergunta()){
-                    if (listaPerguntas.get(player2.getControlador().getPergunta()).getRespostaCerta() == listaPerguntas.get(player2.getControlador().getPergunta()).getRespostaMarcada()){
-                        mostrarTexto(txtAcertouP2);
-                        player2.setPontuacao(player2.getPontuacao()+1);
-                    } else {
-                        mostrarTexto(txtErrouP2);
-                        player2.setPontuacao(player2.getPontuacao()-1);
-                    }
-                    pontosP2.setText(Integer.toString(player2.getPontuacao()));
-                    player2.getControlador().setPergunta(player2.getControlador().getPergunta()+1);
-                    atualizarPergunta(player2);
-                    travaProximaPergunta(player2);
-                }
+                confirmaResposta(player2, front);
             }
         });
 
@@ -390,8 +320,8 @@ public class Multiplayer extends AppCompatActivity {
     }
 
     public void organizaFront(Usuario p1, Usuario p2, FrontEnd f){
-        pontosP1.setText(Integer.toString(player1.getPontuacao()));
-        pontosP2.setText(Integer.toString(player2.getPontuacao()));
+        p1.getControlador().getPontos().setText(Integer.toString(player1.getPontuacao()));
+        p2.getControlador().getPontos().setText(Integer.toString(player2.getPontuacao()));
 
         //Colocar uma animação no confirmar e pular, usar contador de tempo e uma imageview diferente
         //Utilizar objeto e for para diminuir linhas
@@ -445,7 +375,10 @@ public class Multiplayer extends AppCompatActivity {
         if (vencedor.getId() == 1){f.getParabensTxt().get(0).setRotation(180);}
         f.getParabensTxt().get(1).setText(player1.getNome() + "  VS  " + player2.getNome());
         f.getParabensTxt().get(2).setText(player1.getNome() + "  VS  " + player2.getNome());
-        for(int i = 3 ; i <= 6; i++){ f.getParabensTxt().get(i).setText(Integer.toString(player1.getPontuacao()));}
+        f.getParabensTxt().get(3).setText(Integer.toString(player1.getPontuacao()));
+        f.getParabensTxt().get(4).setText(Integer.toString(player2.getPontuacao()));
+        f.getParabensTxt().get(5).setText(Integer.toString(player1.getPontuacao()));
+        f.getParabensTxt().get(6).setText(Integer.toString(player2.getPontuacao()));
     }
 
     public void travaProximaPergunta(final Usuario player){
