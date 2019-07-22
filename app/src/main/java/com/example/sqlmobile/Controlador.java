@@ -15,6 +15,8 @@ public class Controlador {
     private List<ImageView> botoesClicked = new ArrayList<>();
     private List<ImageView> botoesLock = new ArrayList<>();
     private TextView tempo;
+    private TextView tempoLock;
+    private TextView pontos;
 
     public Controlador(){
         this.setPergunta(0);
@@ -94,5 +96,21 @@ public class Controlador {
 
     public void setTempo(TextView tempo) {
         this.tempo = tempo;
+    }
+
+    public TextView getTempoLock() {
+        return tempoLock;
+    }
+
+    public void setTempoLock(TextView tempoLock) {
+        this.tempoLock = tempoLock;
+    }
+
+    public TextView getPontos() {
+        return pontos;
+    }
+
+    public void setPontos(TextView pontos) {
+        this.pontos = pontos;
     }
 }
