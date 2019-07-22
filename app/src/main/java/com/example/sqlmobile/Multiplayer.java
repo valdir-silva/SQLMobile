@@ -1,11 +1,8 @@
 package com.example.sqlmobile;
 
-import android.content.DialogInterface;
 import android.os.CountDownTimer;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,10 +38,8 @@ public class Multiplayer extends AppCompatActivity {
     Usuario player1 = new Usuario();
     Usuario player2 = new Usuario();
 
-    List<Pergunta> listaPerguntas = new ArrayList<Pergunta>();
-    List<Pergunta> listaPerguntasP2 = new ArrayList<Pergunta>();
-
-    Controladores controladores = new Controladores();
+    List<Pergunta> listaPerguntas = new ArrayList<>();
+    List<Pergunta> listaPerguntasP2 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +109,8 @@ public class Multiplayer extends AppCompatActivity {
         txtFinalizouPlayer = findViewById(R.id.txtFinalizouPlayer);
         txtFinalizouPlayer2 = findViewById(R.id.txtFinalizouPlayer2);
 
+        // pensar em instanciar objetos diretamente do findviewbyid IMPORTANT (é possível fazer isso e ainda fazer direto nas classes)
+
         // Abaixo: Instanciando e inicializando objetos e atributos
         player1.setPontuacao(0);
         player2.setPontuacao(0);
@@ -122,29 +119,7 @@ public class Multiplayer extends AppCompatActivity {
         player1.setNome("Player 1"); // Limitar nickname para 10 caracteres
         player2.setNome("Player 2");
 
-        Pergunta pergunta1 = new Pergunta(); // Fazendo desta forma como exemplo, a partir deste código...
-        pergunta1.setPergunta("Select from blabla"); // ...é possível carregar a lista com um Database
-        pergunta1.getResposta().add("Teste de resposta");
-        pergunta1.getResposta().add("Teste de resposta");
-        pergunta1.getResposta().add("Teste de resposta");
-        pergunta1.setRespostaCerta(1);
-        listaPerguntas.add(pergunta1);
-
-        Pergunta pergunta2 = new Pergunta();
-        pergunta2.setPergunta("Select outra pergunta");
-        pergunta2.getResposta().add("Outra resposta");
-        pergunta2.getResposta().add("Outra resposta de novo");
-        pergunta2.getResposta().add("Outra resposta de novo");
-        pergunta2.setRespostaCerta(2);
-        listaPerguntas.add(pergunta2);
-
-        Pergunta pergunta3 = new Pergunta();
-        pergunta3.setPergunta("Select nova pergunta");
-        pergunta3.getResposta().add("Outra nova resposta");
-        pergunta3.getResposta().add("Outra resposta de novo");
-        pergunta3.getResposta().add("Outra resposta de novo");
-        pergunta3.setRespostaCerta(2);
-        listaPerguntas.add(pergunta3);
+        listaPerguntas = preencheLista();
 
         // Lista de Perguntas do Player 2
         Pergunta perguntaP2_1 = new Pergunta();
@@ -199,90 +174,134 @@ public class Multiplayer extends AppCompatActivity {
 
         //FIM INSTANCIANDO E INICIALIZANDO
 
+
+
+        // Populando listas com Front-End de cada player - PLAYER 1
+        player1.getControlador().getTextosPlayer().add(PerguntaPlayer1);
+        player1.getControlador().getTextosPlayer().add(Resposta1);
+        player1.getControlador().getTextosPlayer().add(Resposta2);
+        player1.getControlador().getTextosPlayer().add(Resposta3);
+        player1.getControlador().getTextosPlayer().add(txtFinalizouPlayer);
+
+        player1.getControlador().getImagensPlayer().add(bg_Resposta1);
+        player1.getControlador().getImagensPlayer().add(bg_Resposta1_clicked);
+        player1.getControlador().getImagensPlayer().add(bg_Resposta2);
+        player1.getControlador().getImagensPlayer().add(bg_Resposta2_clicked);
+        player1.getControlador().getImagensPlayer().add(bg_Resposta3);
+        player1.getControlador().getImagensPlayer().add(bg_Resposta3_clicked);
+        player1.getControlador().getImagensPlayer().add(btn_confirma);
+        player1.getControlador().getImagensPlayer().add(btn_confirma_lock);
+        player1.getControlador().getImagensPlayer().add(btn_pular);
+        player1.getControlador().getImagensPlayer().add(btn_pular_lock);
+
+
+
+        // instanciando novamente, mas botoes especificos para ter maior controle de maneira fácil (pensar em coloca-los uni-los para foreach e n duplicar mais os atributos)
+        player1.getControlador().getBotoes().add(bg_Resposta1);
+        player1.getControlador().getBotoes().add(bg_Resposta2);
+        player1.getControlador().getBotoes().add(bg_Resposta3);
+        player1.getControlador().getBotoes().add(btn_confirma);
+        player1.getControlador().getBotoes().add(btn_pular);
+
+        player1.getControlador().getBotoesClicked().add(bg_Resposta1_clicked);
+        player1.getControlador().getBotoesClicked().add(bg_Resposta2_clicked);
+        player1.getControlador().getBotoesClicked().add(bg_Resposta3_clicked);
+
+        player1.getControlador().getBotoesLock().add(btn_confirma_lock);
+        player1.getControlador().getBotoesLock().add(btn_pular_lock);
+
+        player1.getControlador().setTempo(txtTempoLock);
+
+        // Populando listas com Front-End de cada player - PLAYER 2
+        player2.getControlador().getTextosPlayer().add(PerguntaPlayer2);
+        player2.getControlador().getTextosPlayer().add(Resposta1_P2);
+        player2.getControlador().getTextosPlayer().add(Resposta2_P2);
+        player2.getControlador().getTextosPlayer().add(Resposta3_P2);
+        player2.getControlador().getTextosPlayer().add(txtFinalizouPlayer2);
+
+        player2.getControlador().getImagensPlayer().add(bg_Resposta1_P2);
+        player2.getControlador().getImagensPlayer().add(bg_Resposta1_clicked_P2);
+        player2.getControlador().getImagensPlayer().add(bg_Resposta2_P2);
+        player2.getControlador().getImagensPlayer().add(bg_Resposta2_clicked_P2);
+        player2.getControlador().getImagensPlayer().add(bg_Resposta3_P2);
+        player2.getControlador().getImagensPlayer().add(bg_Resposta3_clicked_P2);
+        player2.getControlador().getImagensPlayer().add(btn_confirma_P2);
+        player2.getControlador().getImagensPlayer().add(btn_confirma_lock_P2);
+        player2.getControlador().getImagensPlayer().add(btn_pular_P2);
+        player2.getControlador().getImagensPlayer().add(btn_pular_lock_P2);
+
+        // instanciando novamente, mas botoes especificos para ter maior controle de maneira fácil (pensar em coloca-los uni-los para foreach e n duplicar mais os atributos)
+        player2.getControlador().getBotoes().add(bg_Resposta1_P2);
+        player2.getControlador().getBotoes().add(bg_Resposta2_P2);
+        player2.getControlador().getBotoes().add(bg_Resposta3_P2);
+        player2.getControlador().getBotoes().add(btn_confirma_P2);
+        player2.getControlador().getBotoes().add(btn_pular_P2);
+
+        player2.getControlador().getBotoesClicked().add(bg_Resposta1_clicked_P2);
+        player2.getControlador().getBotoesClicked().add(bg_Resposta2_clicked_P2);
+        player2.getControlador().getBotoesClicked().add(bg_Resposta3_clicked_P2);
+
+        player2.getControlador().getBotoesLock().add(btn_confirma_lock_P2);
+        player2.getControlador().getBotoesLock().add(btn_pular_lock_P2);
+
+        player2.getControlador().setTempo(txtTempoLock_P2);
+
         organizaFront(); //COLOCANDO VALORES FRONT-END
-        travaProximaPergunta();
-        travaProximaPerguntaP2();
+        travaProximaPergunta(player1);
+        travaProximaPergunta(player2);
+
+        // FIM POPULANDO LISTA FRONT PLAYERS
 
         bg_Resposta1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listaPerguntas.get(controladores.getPerguntaP1()).setRespostaMarcada(1);
-                bg_Resposta2_clicked.setVisibility(View.INVISIBLE);
-                bg_Resposta2.setVisibility(View.VISIBLE);
-                bg_Resposta1_clicked.setVisibility(View.VISIBLE);
-                bg_Resposta1.setVisibility(View.INVISIBLE);
-                bg_Resposta3_clicked.setVisibility(View.INVISIBLE);
-                bg_Resposta3.setVisibility(View.VISIBLE);
+                marcarResposta(player1, 0);
+                listaPerguntas.get(player1.getControlador().getPergunta()).setRespostaMarcada(1);
             }
         });
 
         bg_Resposta2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listaPerguntas.get(controladores.getPerguntaP1()).setRespostaMarcada(2);
-                bg_Resposta1_clicked.setVisibility(View.INVISIBLE);
-                bg_Resposta1.setVisibility(View.VISIBLE);
-                bg_Resposta2_clicked.setVisibility(View.VISIBLE);
-                bg_Resposta2.setVisibility(View.INVISIBLE);
-                bg_Resposta3_clicked.setVisibility(View.INVISIBLE);
-                bg_Resposta3.setVisibility(View.VISIBLE);
+                marcarResposta(player1, 1);
+                listaPerguntas.get(player1.getControlador().getPergunta()).setRespostaMarcada(2);
             }
         });
 
         bg_Resposta3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listaPerguntas.get(controladores.getPerguntaP1()).setRespostaMarcada(3);
-                bg_Resposta1_clicked.setVisibility(View.INVISIBLE);
-                bg_Resposta1.setVisibility(View.VISIBLE);
-                bg_Resposta2_clicked.setVisibility(View.INVISIBLE);
-                bg_Resposta2.setVisibility(View.VISIBLE);
-                bg_Resposta3_clicked.setVisibility(View.VISIBLE);
-                bg_Resposta3.setVisibility(View.INVISIBLE);
+                marcarResposta(player1, 2);
+                listaPerguntas.get(player1.getControlador().getPergunta()).setRespostaMarcada(3);
             }
         });
 
         // PLAYER 2
 
-        bg_Resposta1_clicked_P2.setVisibility(View.INVISIBLE);
+        bg_Resposta1_clicked_P2.setVisibility(View.INVISIBLE); // colocar no metodo front
         bg_Resposta2_clicked_P2.setVisibility(View.INVISIBLE);
 
         bg_Resposta1_P2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listaPerguntasP2.get(controladores.getPerguntaP2()).setRespostaMarcada(1);
-                bg_Resposta2_clicked_P2.setVisibility(View.INVISIBLE);
-                bg_Resposta2_P2.setVisibility(View.VISIBLE);
-                bg_Resposta1_clicked_P2.setVisibility(View.VISIBLE);
-                bg_Resposta1_P2.setVisibility(View.INVISIBLE);
-                bg_Resposta3_clicked_P2.setVisibility(View.INVISIBLE);
-                bg_Resposta3_P2.setVisibility(View.VISIBLE);
+                marcarResposta(player2, 0);
+                listaPerguntas.get(player2.getControlador().getPergunta()).setRespostaMarcada(1);
             }
         });
 
         bg_Resposta2_P2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listaPerguntasP2.get(controladores.getPerguntaP2()).setRespostaMarcada(2);
-                bg_Resposta1_clicked_P2.setVisibility(View.INVISIBLE);
-                bg_Resposta1_P2.setVisibility(View.VISIBLE);
-                bg_Resposta2_clicked_P2.setVisibility(View.VISIBLE);
-                bg_Resposta2_P2.setVisibility(View.INVISIBLE);
-                bg_Resposta3_clicked_P2.setVisibility(View.INVISIBLE);
-                bg_Resposta3_P2.setVisibility(View.VISIBLE);
+                marcarResposta(player2, 1);
+                listaPerguntas.get(player2.getControlador().getPergunta()).setRespostaMarcada(2);
             }
         });
 
         bg_Resposta3_P2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listaPerguntasP2.get(controladores.getPerguntaP2()).setRespostaMarcada(3);
-                bg_Resposta1_clicked_P2.setVisibility(View.INVISIBLE);
-                bg_Resposta1_P2.setVisibility(View.VISIBLE);
-                bg_Resposta2_clicked_P2.setVisibility(View.INVISIBLE);
-                bg_Resposta2_P2.setVisibility(View.VISIBLE);
-                bg_Resposta3_clicked_P2.setVisibility(View.VISIBLE);
-                bg_Resposta3_P2.setVisibility(View.INVISIBLE);
+                marcarResposta(player2, 2);
+                listaPerguntas.get(player1.getControlador().getPergunta()).setRespostaMarcada(3);
             }
         });
 
@@ -299,17 +318,17 @@ public class Multiplayer extends AppCompatActivity {
             }
 
             public void onFinish() {
-                finalizaPlayer();
-                finalizaPlayer2();
-                finalizaJogo();
+                player1 = finalizaPlayer(player1); // enviando a instancia do player1 para setar o atributo 'ativo' como false
+                player2 = finalizaPlayer(player2);
+                finalizaJogo(player1, player2);
             }
         }.start();
 
         btn_confirma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(controladores.isLiberaProxPerguntaP1()){
-                    if (listaPerguntas.get(controladores.getPerguntaP1()).getRespostaCerta() == listaPerguntas.get(controladores.getPerguntaP1()).getRespostaMarcada()){
+                if(!player1.isTravaPergunta()){ //criar método
+                    if (listaPerguntas.get(player1.getControlador().getPergunta()).getRespostaCerta() == listaPerguntas.get(player1.getControlador().getPergunta()).getRespostaMarcada()){
                         mostrarTexto(txtAcertou);
                         player1.setPontuacao(player1.getPontuacao()+1);
                     } else {
@@ -317,9 +336,9 @@ public class Multiplayer extends AppCompatActivity {
                         player1.setPontuacao(player1.getPontuacao()-1);
                     }
                     pontosP1.setText(Integer.toString(player1.getPontuacao()));
-                    controladores.setPerguntaP1(controladores.getPerguntaP1()+1);
-                    atualizarPerguntaP1(controladores.getPerguntaP1());
-                    travaProximaPergunta();
+                    player1.getControlador().setPergunta(player1.getControlador().getPergunta()+1);
+                    atualizarPergunta(player1);
+                    travaProximaPergunta(player1);
                 }
             }
         });
@@ -327,8 +346,8 @@ public class Multiplayer extends AppCompatActivity {
         btn_confirma_P2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (controladores.isLiberaProxPerguntaP2()){
-                    if (listaPerguntasP2.get(controladores.getPerguntaP2()).getRespostaCerta() == listaPerguntasP2.get(controladores.getPerguntaP2()).getRespostaMarcada()){
+                if (!player2.isTravaPergunta()){
+                    if (listaPerguntasP2.get(player2.getControlador().getPergunta()).getRespostaCerta() == listaPerguntasP2.get(player2.getControlador().getPergunta()).getRespostaMarcada()){
                         mostrarTexto(txtAcertouP2);
                         player2.setPontuacao(player2.getPontuacao()+1);
                     } else {
@@ -336,9 +355,9 @@ public class Multiplayer extends AppCompatActivity {
                         player2.setPontuacao(player2.getPontuacao()-1);
                     }
                     pontosP2.setText(Integer.toString(player2.getPontuacao()));
-                    controladores.setPerguntaP2(controladores.getPerguntaP2()+1);
-                    atualizarPerguntaP2(controladores.getPerguntaP2());
-                    travaProximaPerguntaP2();
+                    player2.getControlador().setPergunta(player2.getControlador().getPergunta()+1);
+                    atualizarPergunta(player2);
+                    travaProximaPergunta(player2);
                 }
             }
         });
@@ -346,22 +365,16 @@ public class Multiplayer extends AppCompatActivity {
         btn_pular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                controladores.setPerguntaP1(controladores.getPerguntaP1()+1);
-                atualizarPerguntaP1(controladores.getPerguntaP1());
+                pularPergunta(player1);
             }
         });
 
         btn_pular_P2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                controladores.setPerguntaP2(controladores.getPerguntaP2()+1);
-                atualizarPerguntaP2(controladores.getPerguntaP1());
+                pularPergunta(player2);
             }
         });
-    }
-
-    public void mostrarImagem (ImageView imagem){
-        imagem.setVisibility(View.VISIBLE);
     }
 
     public void mostrarTexto (final TextView texto){
@@ -376,41 +389,23 @@ public class Multiplayer extends AppCompatActivity {
         }.start();
     }
 
-    public void atualizarPerguntaP1(int numPergunta){ // Abstrair para os dois jogadores // ADICIONAR TEMPO DE 5 SEGUNDOS PARA TROCAR DE PERGUNTA, ATÉ LÁ, VOLTAR E CONFIRMA FICAM CINZA
+    public void atualizarPergunta(Usuario player){
         try {
-            PerguntaPlayer1.setText(listaPerguntas.get(numPergunta).getPergunta());
-            Resposta1.setText(listaPerguntas.get(numPergunta).getResposta().get(0));
-            Resposta2.setText(listaPerguntas.get(numPergunta).getResposta().get(1));
-            Resposta3.setText(listaPerguntas.get(numPergunta).getResposta().get(2));
+            int numPergunta = player.getControlador().getPergunta();
+            //usar for para diminuir linhas de codigo aqui
+            player.getControlador().getTextosPlayer().get(0).setText(listaPerguntas.get(numPergunta).getPergunta());
+            player.getControlador().getTextosPlayer().get(1).setText(listaPerguntas.get(numPergunta).getResposta().get(0));
+            player.getControlador().getTextosPlayer().get(2).setText(listaPerguntas.get(numPergunta).getResposta().get(1));
+            player.getControlador().getTextosPlayer().get(3).setText(listaPerguntas.get(numPergunta).getResposta().get(2));
 
-            bg_Resposta1.setVisibility(View.VISIBLE);
-            bg_Resposta1_clicked.setVisibility(View.INVISIBLE);
-            bg_Resposta2.setVisibility(View.VISIBLE);
-            bg_Resposta2_clicked.setVisibility(View.INVISIBLE);
-            bg_Resposta3.setVisibility(View.VISIBLE);
-            bg_Resposta3_clicked.setVisibility(View.INVISIBLE);
+            player.getControlador().getBotoes().get(0).setVisibility(View.VISIBLE);
+            player.getControlador().getBotoes().get(1).setVisibility(View.VISIBLE);
+            player.getControlador().getBotoes().get(2).setVisibility(View.VISIBLE);
+            player.getControlador().getBotoesClicked().get(0).setVisibility(View.INVISIBLE);
+            player.getControlador().getBotoesClicked().get(1).setVisibility(View.INVISIBLE);
+            player.getControlador().getBotoesClicked().get(2).setVisibility(View.INVISIBLE);
         } catch (IndexOutOfBoundsException e){
-            controladores.setFinalizaPlayer1(true);
-            finalizaPlayer();
-        }
-    }
-
-    public void atualizarPerguntaP2(int numPergunta){ // Abstrair para os dois jogadores // ADICIONAR TEMPO DE 5 SEGUNDOS PARA TROCAR DE PERGUNTA, ATÉ LÁ, VOLTAR E CONFIRMA FICAM CINZA
-        try {
-            PerguntaPlayer2.setText(listaPerguntasP2.get(numPergunta).getPergunta());
-            Resposta1_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(0));
-            Resposta2_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(1));
-            Resposta3_P2.setText(listaPerguntasP2.get(numPergunta).getResposta().get(2));
-
-            bg_Resposta1_P2.setVisibility(View.VISIBLE);
-            bg_Resposta1_clicked_P2.setVisibility(View.INVISIBLE);
-            bg_Resposta2_P2.setVisibility(View.VISIBLE);
-            bg_Resposta2_clicked_P2.setVisibility(View.INVISIBLE);
-            bg_Resposta3_P2.setVisibility(View.VISIBLE);
-            bg_Resposta3_clicked_P2.setVisibility(View.INVISIBLE);
-        } catch(IndexOutOfBoundsException e) {
-            controladores.setFinalizaPlayer2(true);
-            finalizaPlayer2();
+            player = finalizaPlayer(player); // ficou desnecessário nessa parte o objeto retornar
         }
     }
 
@@ -419,6 +414,7 @@ public class Multiplayer extends AppCompatActivity {
         pontosP2.setText(Integer.toString(player2.getPontuacao()));
 
         //Colocar uma animação no confirmar e pular, usar contador de tempo e uma imageview diferente
+        //Utilizar objeto e for para diminuir linhas
         btn_confirma_lock.setVisibility(View.INVISIBLE);
         btn_pular_lock.setVisibility(View.INVISIBLE);
         txtTempoLock.setVisibility(View.INVISIBLE);
@@ -451,14 +447,15 @@ public class Multiplayer extends AppCompatActivity {
         txtFinalizouPlayer.setVisibility(View.INVISIBLE);
         txtFinalizouPlayer2.setVisibility(View.INVISIBLE);
 
-        atualizarPerguntaP1(controladores.getPerguntaP1());
-        atualizarPerguntaP2(controladores.getPerguntaP2());
+        atualizarPergunta(player1);
+        atualizarPergunta(player2);
     }
 
-    public void finalizaJogo(){ // Remover todas as ImageView de perguntas e colocar o nome FIM DE JOGO, utilizar atributo em Controladores para gerenciar isto
+    public void finalizaJogo(Usuario p1, Usuario p2){ // Remover todas as ImageView de perguntas e colocar o nome FIM DE JOGO, utilizar atributo em Controlador para gerenciar isto
         tempoP1.setText("FIM!");
         tempoP2.setText("FIM!");
 
+        //criar atributo contendo todas as imagens e textos da tela de fim de jogo
         txtParabens.setVisibility(View.VISIBLE);
         bg_txt_fim.setVisibility(View.VISIBLE);
         bg_fim.setVisibility(View.VISIBLE);
@@ -469,7 +466,7 @@ public class Multiplayer extends AppCompatActivity {
         pontosP1_P2.setVisibility(View.VISIBLE);
         pontosP2_P2.setVisibility(View.VISIBLE);
 
-        Usuario vencedor = controladores.testaVencedor(player1, player2);
+        Usuario vencedor = new Usuario().getControlador().testaVencedor(p1, p2);
 
         txtParabens.setText("PARABÉNS: " + vencedor.getNome());// Fazer, de alguma forma, não ser possível clicar nos botões por quando aparecer essa janela
         if (vencedor.getId() == 1){txtParabens.setRotation(180);}
@@ -481,112 +478,123 @@ public class Multiplayer extends AppCompatActivity {
         pontosP2_P2.setText(Integer.toString(player2.getPontuacao()));
     }
 
-    public void travaProximaPergunta(){ // Abstrair método para os dois players
-        if (!controladores.isFinalizaPlayer1()){
-            controladores.setLiberaProxPerguntaP1(false);
+    public void travaProximaPergunta(final Usuario player){
+        if (player.isAtivo()){
+            player.setTravaPergunta(true);
 
-            btn_pular.setVisibility(View.INVISIBLE);
-            btn_pular_lock.setVisibility(View.VISIBLE);
-            btn_confirma.setVisibility(View.INVISIBLE);
-            btn_confirma_lock.setVisibility(View.VISIBLE);
-
-            new CountDownTimer(6000, 1000) {
-                public void onTick(long millisUntilFinished) {
-
-                    int seconds = (int) ((millisUntilFinished / 1000) + 1);
-                    if(seconds<=5) {
-                        txtTempoLock.setVisibility(View.VISIBLE);
-                        txtTempoLock.setText(Integer.toString(seconds));
-                    }
-
-                }
-                public void onFinish() {
-                    btn_pular.setVisibility(View.VISIBLE);
-                    btn_pular_lock.setVisibility(View.INVISIBLE);
-                    btn_confirma.setVisibility(View.VISIBLE);
-                    btn_confirma_lock.setVisibility(View.INVISIBLE);
-                    txtTempoLock.setVisibility(View.INVISIBLE);
-                    controladores.setLiberaProxPerguntaP1(true);
-                }
-            }.start();
-        }
-    }
-
-    public void travaProximaPerguntaP2(){
-        if(!controladores.isFinalizaPlayer2()){
-            controladores.setLiberaProxPerguntaP2(false);
-
-            btn_pular_P2.setVisibility(View.INVISIBLE);
-            btn_pular_lock_P2.setVisibility(View.VISIBLE);
-            btn_confirma_P2.setVisibility(View.INVISIBLE);
-            btn_confirma_lock_P2.setVisibility(View.VISIBLE);
+            player.getControlador().getBotoes().get(3).setVisibility(View.INVISIBLE);
+            player.getControlador().getBotoes().get(4).setVisibility(View.INVISIBLE);
+            player.getControlador().getBotoesLock().get(0).setVisibility(View.VISIBLE);
+            player.getControlador().getBotoesLock().get(1).setVisibility(View.VISIBLE);
 
             new CountDownTimer(6000, 1000) {
                 public void onTick(long millisUntilFinished) {
 
                     int seconds = (int) ((millisUntilFinished / 1000) + 1);
                     if(seconds<=5) {
-                        txtTempoLock_P2.setVisibility(View.VISIBLE);
-                        txtTempoLock_P2.setText(Integer.toString(seconds));
+                        player.getControlador().getTempo().setVisibility(View.VISIBLE);
+                        player.getControlador().getTempo().setText(Integer.toString(seconds));
                     }
                 }
                 public void onFinish() {
-                    btn_pular_P2.setVisibility(View.VISIBLE);
-                    btn_pular_lock_P2.setVisibility(View.INVISIBLE);
-                    btn_confirma_P2.setVisibility(View.VISIBLE);
-                    btn_confirma_lock_P2.setVisibility(View.INVISIBLE);
-                    txtTempoLock_P2.setVisibility(View.INVISIBLE);
-                    controladores.setLiberaProxPerguntaP2(true);
+                    player.getControlador().getBotoes().get(3).setVisibility(View.VISIBLE);
+                    player.getControlador().getBotoes().get(4).setVisibility(View.VISIBLE);
+                    player.getControlador().getBotoesLock().get(0).setVisibility(View.INVISIBLE);
+                    player.getControlador().getBotoesLock().get(1).setVisibility(View.INVISIBLE);
+
+                    player.getControlador().getTempo().setVisibility(View.INVISIBLE);
+
+                    player.setTravaPergunta(false);
                 }
             }.start();
         }
     }
 
-    public void finalizaPlayer(){
-        txtFinalizouPlayer.setVisibility(View.VISIBLE);
+    public Usuario finalizaPlayer(Usuario player){
 
-        PerguntaPlayer1.setVisibility(View.INVISIBLE);
-        bg_Resposta1.setVisibility(View.INVISIBLE);
-        bg_Resposta1_clicked.setVisibility(View.INVISIBLE);
-        Resposta1.setVisibility(View.INVISIBLE);
+        for (TextView texto : player.getControlador().getTextosPlayer()){
+            if(texto.getText().equals("FIM")){
+                texto.setVisibility(View.VISIBLE);
+            } else {
+                texto.setVisibility(View.INVISIBLE);
+            }
+        }
+        for (ImageView imagem : player.getControlador().getImagensPlayer()){
+            imagem.setVisibility(View.INVISIBLE);
+        }
 
-        bg_Resposta2.setVisibility(View.INVISIBLE);
-        bg_Resposta2_clicked.setVisibility(View.INVISIBLE);
-        Resposta2.setVisibility(View.INVISIBLE);
+        player.setAtivo(false);
 
-        bg_Resposta3.setVisibility(View.INVISIBLE);
-        bg_Resposta3_clicked.setVisibility(View.INVISIBLE);
-        Resposta3.setVisibility(View.INVISIBLE);
-
-        btn_confirma.setVisibility(View.INVISIBLE);
-        btn_confirma_lock.setVisibility(View.INVISIBLE);
-        btn_pular.setVisibility(View.INVISIBLE);
-        btn_pular_lock.setVisibility(View.INVISIBLE);
-
-        controladores.setFinalizaPlayer2(true);
+        return player;
     }
 
-    public void finalizaPlayer2(){
-        txtFinalizouPlayer2.setVisibility(View.VISIBLE);
+    public List<Pergunta> preencheLista(){
 
-        PerguntaPlayer2.setVisibility(View.INVISIBLE);
-        bg_Resposta1_P2.setVisibility(View.INVISIBLE);
-        bg_Resposta1_clicked_P2.setVisibility(View.INVISIBLE);
-        Resposta1_P2.setVisibility(View.INVISIBLE);
+        List<Pergunta> perguntas = new ArrayList<Pergunta>();
 
-        bg_Resposta2_P2.setVisibility(View.INVISIBLE);
-        bg_Resposta2_clicked_P2.setVisibility(View.INVISIBLE);
-        Resposta2_P2.setVisibility(View.INVISIBLE);
+        Pergunta pergunta1 = new Pergunta(); // Fazendo desta forma como exemplo, a partir deste código...
+        pergunta1.setPergunta("Select from blabla"); // ...é possível carregar a lista com um Database
+        pergunta1.getResposta().add("Teste de resposta");
+        pergunta1.getResposta().add("Teste de resposta");
+        pergunta1.getResposta().add("Teste de resposta");
+        pergunta1.setRespostaCerta(1);
+        perguntas.add(pergunta1);
 
-        bg_Resposta3_P2.setVisibility(View.INVISIBLE);
-        bg_Resposta3_clicked_P2.setVisibility(View.INVISIBLE);
-        Resposta3_P2.setVisibility(View.INVISIBLE);
+        Pergunta pergunta2 = new Pergunta();
+        pergunta2.setPergunta("Select outra pergunta");
+        pergunta2.getResposta().add("Outra resposta");
+        pergunta2.getResposta().add("Outra resposta de novo");
+        pergunta2.getResposta().add("Outra resposta de novo");
+        pergunta2.setRespostaCerta(2);
+        perguntas.add(pergunta2);
 
-        btn_confirma_P2.setVisibility(View.INVISIBLE);
-        btn_confirma_lock_P2.setVisibility(View.INVISIBLE);
-        btn_pular_P2.setVisibility(View.INVISIBLE);
-        btn_pular_lock_P2.setVisibility(View.INVISIBLE);
+        Pergunta pergunta3 = new Pergunta();
+        pergunta3.setPergunta("Select nova pergunta");
+        pergunta3.getResposta().add("Outra nova resposta");
+        pergunta3.getResposta().add("Outra resposta de novo");
+        pergunta3.getResposta().add("Outra resposta de novo");
+        pergunta3.setRespostaCerta(2);
+        perguntas.add(pergunta3);
 
-        controladores.setFinalizaPlayer2(true);
+        return perguntas;
+    }
+
+    public void pularPergunta(Usuario player){
+        player.getControlador().setPergunta(player.getControlador().getPergunta()+1);
+        atualizarPergunta(player);
+    }
+
+    public void setBtn_confirma(Usuario player){ //concluir abstração nesse método
+        if(!player.isTravaPergunta()){
+            if (listaPerguntas.get(player.getControlador().getPergunta()).getRespostaCerta() == listaPerguntas.get(player.getControlador().getPergunta()).getRespostaMarcada()){
+                mostrarTexto(txtAcertou);
+                player.setPontuacao(player.getPontuacao()+1);
+            } else {
+                mostrarTexto(txtErrou);
+                player.setPontuacao(player.getPontuacao()-1);
+            }
+            pontosP1.setText(Integer.toString(player.getPontuacao()));
+            player.getControlador().setPergunta(player.getControlador().getPergunta()+1);
+            atualizarPergunta(player);
+            travaProximaPergunta(player);
+        }
+    }
+
+    public void preencheObjetos(){ //pensar em instanciar objetos em método global para carregar todos os dados nessa classe e nao na main
+
+    }
+
+    public void marcarResposta (Usuario player, int numero){ // testar colocar esse método na classe Controlador
+        listaPerguntas.get(player.getControlador().getPergunta()).setRespostaMarcada(numero);
+
+        for (int i = 0; i <= 2; i++){
+            if(i == numero){
+                player.getControlador().getBotoes().get(i).setVisibility(View.INVISIBLE);
+                player.getControlador().getBotoesClicked().get(i).setVisibility(View.VISIBLE);
+            } else {
+                player.getControlador().getBotoes().get(i).setVisibility(View.VISIBLE);
+                player.getControlador().getBotoesClicked().get(i).setVisibility(View.INVISIBLE);
+            }
+        }
     }
 }

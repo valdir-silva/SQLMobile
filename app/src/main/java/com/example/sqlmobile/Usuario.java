@@ -5,8 +5,14 @@ public class Usuario {
     private int id;
     private String nome;
     private int pontuacao;
+    private boolean ativo;
+    private boolean travaPergunta;
+    private Controlador controlador = new Controlador();
 
-    public Usuario () {}
+    public Usuario () {
+        this.setAtivo(true);
+        this.setTravaPergunta(false);
+    }
 
     public int getId() {
         return id;
@@ -30,5 +36,29 @@ public class Usuario {
 
     public void setPontuacao(int pontuacao) {
         this.pontuacao = pontuacao;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public boolean isTravaPergunta() {
+        return travaPergunta;
+    }
+
+    public void setTravaPergunta(boolean travaPergunta) {
+        this.travaPergunta = travaPergunta;
+    }
+
+    public Controlador getControlador() {
+        return controlador;
+    }
+
+    public void setControlador(Controlador controlador) {
+        this.controlador = controlador;
     }
 }
