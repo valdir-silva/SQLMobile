@@ -1,5 +1,6 @@
 package com.example.sqlmobile;
 
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -8,9 +9,12 @@ import java.util.List;
 
 public class FrontEnd {
     List<ImageView> imagens = new ArrayList<>();
-    List<TextView> textos = new ArrayList<>();
     List<ImageView> parabensImg = new ArrayList<>();
     List<TextView> parabensTxt = new ArrayList<>();
+    AppCompatActivity tela;
+    Multiplayer act;
+
+    public FrontEnd( ){}
 
     public List<ImageView> getImagens() {
         return imagens;
@@ -18,14 +22,6 @@ public class FrontEnd {
 
     public void setImagens(List<ImageView> imagens) {
         this.imagens = imagens;
-    }
-
-    public List<TextView> getTextos() {
-        return textos;
-    }
-
-    public void setTextos(List<TextView> textos) {
-        this.textos = textos;
     }
 
     public List<ImageView> getParabensImg() {
