@@ -18,10 +18,9 @@ public class Multiplayer extends AppCompatActivity {
     Usuario player2 = new Usuario();
 
     Controlador controlador = new Controlador();
-
-    List<Pergunta> listaPerguntas = new ArrayList<>();
     FrontEnd front = new FrontEnd();
 
+    List<Pergunta> listaPerguntas = new ArrayList<>();
     private PerguntaDAO dao;
 
     @Override
@@ -225,14 +224,14 @@ public class Multiplayer extends AppCompatActivity {
 
         player1.getControlador().getBotoes().get(4).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { // BOTAO PULAR (mudar atributo para entender melhor oq significa)
                 controlador.pularPergunta(player1, listaPerguntas);
             }
         });
 
         player2.getControlador().getBotoes().get(4).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { // BOTAO PULAR
                 controlador.pularPergunta(player2, listaPerguntas);
             }
         });

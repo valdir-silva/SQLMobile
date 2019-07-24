@@ -42,8 +42,10 @@ public class Controlador {
 
         if(p1.getPontuacao() > p2.getPontuacao()){
             vencedor = p1;
-        } else {
+        } else if (p1.getPontuacao() < p2.getPontuacao()){
             vencedor = p2;
+        } else {
+            vencedor = null;
         }
         return vencedor;
     }
@@ -303,8 +305,13 @@ public class Controlador {
 
         Usuario vencedor = new Usuario().getControlador().testaVencedor(p1, p2);
 
-        f.getParabensTxt().get(0).setText("PARABÉNS: " + vencedor.getNome());
-        if (vencedor.getId() == 1){f.getParabensTxt().get(0).setRotation(180);}
+        try {
+            f.getParabensTxt().get(0).setText("PARABÉNS: " + vencedor.getNome());
+            if (vencedor.getId() == 1){f.getParabensTxt().get(0).setRotation(180);}
+        } catch (Exception e){
+            f.getParabensTxt().get(0).setText("EMPATE");
+        }
+
         f.getParabensTxt().get(1).setText(p1.getNome() + "  VS  " + p2.getNome());
         f.getParabensTxt().get(2).setText(p1.getNome() + "  VS  " + p2.getNome());
         f.getParabensTxt().get(3).setText(Integer.toString(p1.getPontuacao()));
