@@ -1,6 +1,9 @@
 package com.example.sqlmobile;
 
-public class Usuario {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Usuario implements Parcelable {
 
     private int id;
     private String nome;
@@ -9,9 +12,44 @@ public class Usuario {
     private boolean travaPergunta;
     private Controlador controlador = new Controlador();
 
+
     public Usuario () {
         this.setAtivo(true);
         this.setTravaPergunta(false);
+    }
+
+    protected Usuario(Parcel in) {
+        id = in.readInt();
+        nome = in.readString();
+        pontuacao = in.readInt();
+        ativo = in.readByte() != 0;
+        travaPergunta = in.readByte() != 0;
+    }
+
+    public static final Creator<Usuario> CREATOR = new Creator<Usuario>() {
+        @Override
+        public Usuario createFromParcel(Parcel in) {
+            return new Usuario(in);
+        }
+
+        @Override
+        public Usuario[] newArray(int size) {
+            return new Usuario[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(nome);
+        dest.writeInt(pontuacao);
+        dest.writeByte((byte) (ativo ? 1 : 0));
+        dest.writeByte((byte) (travaPergunta ? 1 : 0));
     }
 
     public int getId() {

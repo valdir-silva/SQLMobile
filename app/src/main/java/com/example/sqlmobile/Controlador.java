@@ -1,6 +1,8 @@
 package com.example.sqlmobile;
 
 import android.os.CountDownTimer;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,7 +12,7 @@ import com.example.sqlmobile.database.PerguntaDAO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Controlador {
+public class Controlador implements Parcelable {
     private int pergunta;
     private boolean finalizaPlayer;
     private List<TextView> textosPlayer = new ArrayList<TextView>();
@@ -18,6 +20,7 @@ public class Controlador {
     private List<ImageView> botoes = new ArrayList<>();
     private List<ImageView> botoesClicked = new ArrayList<>();
     private List<ImageView> botoesLock = new ArrayList<>();
+    private int tempoTravado;
     private TextView tempo;
     private TextView tempoLock;
     private TextView pontos;
@@ -27,6 +30,24 @@ public class Controlador {
     public Controlador(){
         this.setPergunta(0);
     }
+
+    protected Controlador(Parcel in) {
+        pergunta = in.readInt();
+        finalizaPlayer = in.readByte() != 0;
+        tempoTravado = in.readInt();
+    }
+
+    public static final Creator<Controlador> CREATOR = new Creator<Controlador>() {
+        @Override
+        public Controlador createFromParcel(Parcel in) {
+            return new Controlador(in);
+        }
+
+        @Override
+        public Controlador[] newArray(int size) {
+            return new Controlador[size];
+        }
+    };
 
     public int getPergunta() {
         return pergunta;
@@ -96,6 +117,14 @@ public class Controlador {
 
     public void setBotoesLock(List<ImageView> botoesLock) {
         this.botoesLock = botoesLock;
+    }
+
+    public int getTempoTravado() {
+        return tempoTravado;
+    }
+
+    public void setTempoTravado(int tempoTravado) {
+        this.tempoTravado = tempoTravado;
     }
 
     public TextView getTempo() {
@@ -196,7 +225,7 @@ public class Controlador {
         }
     }
 
-    public void confirmaResposta(Usuario player, FrontEnd f, List<Pergunta> listaPerguntas){ // se levar ele para uma classe será necessário enviar e retornar a lista de perguntas
+    public void confirmaResposta(Usuario player, FrontEnd f, List<Pergunta> listaPerguntas){ // QUANDO PONTUACAO FICAR NEGATIVA DEIXAR BG VERMELHO
         if(!player.isTravaPergunta()){
             if (listaPerguntas.get(player.getControlador().getPergunta()).getRespostaCerta() == listaPerguntas.get(player.getControlador().getPergunta()).getRespostaMarcada()){
                 player.getControlador().mostrarTexto(player.getControlador().getAcertou());
@@ -221,11 +250,11 @@ public class Controlador {
             player.getControlador().getBotoesLock().get(0).setVisibility(View.VISIBLE);
             player.getControlador().getBotoesLock().get(1).setVisibility(View.VISIBLE);
 
-            new CountDownTimer(6000, 1000) {
+            new CountDownTimer(player.getControlador().getTempoTravado()*1000, 1000) {
                 public void onTick(long millisUntilFinished) {
 
                     int seconds = (int) ((millisUntilFinished / 1000) + 1);
-                    if(seconds<=5) {
+                    if(seconds<=(player.getControlador().getTempoTravado()-1)) {
                         player.getControlador().getTempoLock().setVisibility(View.VISIBLE);
                         player.getControlador().getTempoLock().setText(Integer.toString(seconds));
                     }
@@ -371,5 +400,17 @@ public class Controlador {
         dao.inserir(perguntaP2_6);
 
         return dao;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(pergunta);
+        dest.writeByte((byte) (finalizaPlayer ? 1 : 0));
+        dest.writeInt(tempoTravado);
     }
 }

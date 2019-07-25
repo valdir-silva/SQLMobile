@@ -28,8 +28,25 @@ public class Multiplayer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide(); // Retira a Action Bar
         setContentView(R.layout.activity_multiplayer);
+        dao = new PerguntaDAO(this);
 
-        Usuario p1 = new Usuario();
+        // Abaixo: Instanciando e inicializando objetos e atributos
+        if (getIntent().getExtras() != null) {
+            player1 = getIntent().getExtras().getParcelable("player1");
+            player2 = getIntent().getExtras().getParcelable("player2");
+            controlador = getIntent().getExtras().getParcelable("controlador");
+        }
+        player1.getControlador().setTempoTravado(controlador.getTempoTravado());
+        player2.getControlador().setTempoTravado(controlador.getTempoTravado());
+        player1.setPontuacao(0);
+        player2.setPontuacao(0);
+        player1.setId(0);
+        player2.setId(1);
+
+        dao = controlador.preencheLista(dao);
+        listaPerguntas = dao.obterTudo();
+        //FIM INSTANCIANDO E INICIALIZANDO
+
         // Populando listas com Front-End de cada player - PLAYER 1
         player1.getControlador().getTextosPlayer().add((TextView) findViewById(R.id.PerguntaPlayer1));
         player1.getControlador().getTextosPlayer().add((TextView) findViewById(R.id.Resposta1));
@@ -120,20 +137,6 @@ public class Multiplayer extends AppCompatActivity {
         front.getParabensImg().add((ImageView) findViewById(R.id.bg_txt_fim));
         front.getParabensImg().add((ImageView) findViewById(R.id.bg_fim));
 
-        dao = new PerguntaDAO(this);
-
-        // Abaixo: Instanciando e inicializando objetos e atributos
-        player1.setPontuacao(0);
-        player2.setPontuacao(0);
-        player1.setId(0);
-        player2.setId(1);
-        player1.setNome("Player 1"); // Limitar nickname para 10 caracteres
-        player2.setNome("Player 2");
-
-        dao = controlador.preencheLista(dao);
-        listaPerguntas = dao.obterTudo();
-        //FIM INSTANCIANDO E INICIALIZANDO
-
         controlador.organizaFront(player1, player2, front, listaPerguntas); //COLOCANDO VALORES FRONT-END
         controlador.travaProximaPergunta(player1);
         controlador.travaProximaPergunta(player2);
@@ -210,7 +213,7 @@ public class Multiplayer extends AppCompatActivity {
 
         player1.getControlador().getBotoes().get(3).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { // QUANDO PONTUACAO FICAR NEGATIVA DEIXAR BG VERMELHO
                 controlador.confirmaResposta(player1, front, listaPerguntas);
             }
         });
